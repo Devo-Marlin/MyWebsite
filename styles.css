@@ -1,0 +1,96 @@
+/* Reset default margin and padding */
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%; /* Ensure the body spans the full width */
+}
+
+/* Global styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: black;
+    color: white; /* Set default text color to white */
+}
+
+h1, p {
+    color: white; /* Ensure all headings and paragraphs have white text */
+}
+
+/* Navigation bar styles */
+.navbar {
+    width: 100%; /* Full width */
+    display: flex;
+    flex-direction: column; /* Stack banner and links vertically */
+    align-items: center; /* Center content horizontally */
+    padding: 0;
+    margin: 0;
+}
+
+.nav-links {
+    display: flex; /* Use Flexbox for links */
+    justify-content: center; /* Center links horizontally */
+    gap: 20px; /* Add spacing between links */
+    margin: 10px 0; /* Add spacing below the banner */
+}
+
+.nav-links a {
+    display: inline-block; /* Make links behave like buttons */
+    padding: 10px 20px; /* Add consistent padding */
+    margin: 5px; /* Add spacing between buttons */
+    color: rgb(255, 255, 255); /* White text */
+    text-decoration: none; /* Remove underline */
+    border: 2px solid rgb(255, 255, 255); /* Add border */
+    border-radius: 5px; /* Slightly round corners */
+    font-weight: bold; /* Bold text */
+    text-align: center; /* Center text inside button */
+    width: 150px; /* Fixed width for buttons */
+    transition: background-color 0.3s ease; /* Smooth hover effect */
+}
+
+.nav-links a:hover {
+    background-color: rgb(255, 0, 0); /* Red background on hover */
+    color: rgb(20, 34, 104); /* Change text color on hover */
+}
+
+/* Banner styles */
+.banner-container {
+    width: 100%; /* Full width */
+    height: 200px; /* Fixed height */
+    overflow: hidden; /* Crop content outside container */
+}
+
+.navbar-banner {
+    width: 100%; /* Full width */
+    height: 100%; /* Fill container height */
+    object-fit: cover; /* Crop image to fit container */
+    object-position: 50% 70%; /* Center horizontally, move up slightly */
+    display: block; /* Block-level element */
+}
+
+/* Welcome section styles */
+.welcome-section {
+    text-align: center; /* Center text */
+}
+
+.welcome-section h1 {
+    font-size: 36px; /* Heading font size */
+}
+
+.welcome-section p {
+    font-size: 18px; /* Paragraph font size */
+    margin: 20px 0; /* Add spacing below paragraph */
+}
+
+.welcome-section .arrow-icon {
+    font-size: 24px; /* Arrow icon font size */
+}
+
+/* Project section styles */
+.project-section h1, .project-section p {
+    color: white; /* Ensure text is white */
+}
+
+/* Contact section styles */
+.contact-section h1, .contact-section p {
+    color: white; /* Ensure text is white */
+}
