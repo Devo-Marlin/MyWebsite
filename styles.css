@@ -54,9 +54,21 @@ h1, p {
 
 /* Banner styles */
 .banner-container {
+    position: relative;
     width: 100%; /* Full width */
     height: 200px; /* Fixed height */
     overflow: hidden; /* Crop content outside container */
+}
+
+.banner-text {
+    position: absolute;
+    top: 50%;         /* Center vertically */
+    left: 50%;        /* Center horizontally */
+    transform: translate(-50%, -50%);
+    color: white;     /* Make it stand out */
+    font-size: 2rem;  /* Adjust as needed */
+    font-weight: bold;
+    text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.6); /* Optional but helpful for readability */
 }
 
 .navbar-banner {
@@ -93,4 +105,18 @@ h1, p {
 /* Contact section styles */
 .contact-section h1, .contact-section p {
     color: white; /* Ensure text is white */
+}
+
+.back-button {
+    margin: 20px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    background-color: #eee;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+.back-button:hover {
+    background-color: #ddd;
 }
