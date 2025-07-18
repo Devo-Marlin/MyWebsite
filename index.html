@@ -1,26 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Devon Marlin Portfolio</title>
-    <link rel="stylesheet" href="styles.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Devon Marlin Portfolio</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-    <script>
-  const hamburger = document.getElementById('hamburger');
-  const navLinks = document.getElementById('navLinks');
 
-  hamburger.addEventListener('click', () => {
-    navLinks.classList.toggle('active');
-  });
-</script>
-
-<nav class="navbar">
+<nav class="navbar" style="position: relative;">
   <div class="nav-container">
     <div class="nav-links" id="navLinks">
       <a href="index.html">Home</a>
-      <a href="miata.html">Miata</a>
+      <a href="Miata.html">Miata</a>
       <a href="FPV-Drones.html">FPV-Drones</a>
       <a href="Beerlista.html">Beerlista</a>
       <a href="Cinematography.html">Cinematography</a>
@@ -30,141 +22,137 @@
   <div class="hamburger" id="hamburger">☰</div>
 </nav>
 
+<div class="banner-container">
+  <img src="Photos/Photo.JPG" alt="Banner" class="banner-image" />
+  <div class="banner-text">Digital Portfolio</div>
+</div>
 
-    <div class="banner-container">
-        <img src="Photos/Photo.JPG" alt="Banner" class="banner-image" />
-        <div class="banner-text">Digital Portfolio</div>
+<section class="welcome-section">
+  <div class="welcome-text">
+    <h1>Hi, I'm Devon</h1>
+    <p>
+      I'm an engineering student with a passion for building cars, drones, and tech projects.
+      I'm currently attending [Your School Name].
+      This portfolio showcases my work and creative journey.
+    </p>
+  </div>
+  <div class="welcome-images">
+    <img src="me1.jpg" alt="Devon at work" />
+    <img src="me2.jpg" alt="Devon with drone" />
+  </div>
+</section>
+
+<section class="projects-container">
+  <a href="Miata.html" class="project-card">
+    <div class="project-image">
+      <img src="Photos/Miata.jpg" alt="Miata project" />
     </div>
+    <div class="project-info">
+      <h2>Miata Track Build</h2>
+      <p>A lightweight cornering machine that doubles as a show car. Custom everything.</p>
+    </div>
+  </a>
 
-    <section class="welcome-section">
-        <div class="welcome-text">
-            <h1>Hi, I'm Devon</h1>
-            <p>
-                I'm an engineering student with a passion for building cars, drones, and tech projects.
-                I'm currently attending [Your School Name].
-                This portfolio showcases my work and creative journey.
-            </p>
-        </div>
-        <div class="welcome-images">
-            <img src="me1.jpg" alt="Devon at work" />
-            <img src="me2.jpg" alt="Devon with drone" />
-        </div>
-    </section>
+  <a href="FPV-Drones.html" class="project-card reverse">
+    <div class="project-image">
+      <img src="Photos/Avata.jpg" alt="FPV drone" />
+    </div>
+    <div class="project-info">
+      <h2>FPV Drone Builds</h2>
+      <p>Hand-built FPV drones for racing and cinematic footage. Tuning and acro-ready.</p>
+    </div>
+  </a>
 
-    <section class="projects-container">
-        <a href="Miata.html" class="project-card">
-            <div class="project-image">
-                <img src="Photos/Miata.jpg" alt="Miata project" />
-            </div>
-            <div class="project-info">
-                <h2>Miata Track Build</h2>
-                <p>A lightweight cornering machine that doubles as a show car. Custom everything.</p>
-            </div>
-        </a>
+  <a href="Beerlista.html" class="project-card">
+    <div class="project-image">
+      <img src="Photos/beerlista.jpg" alt="Beerlista app" />
+    </div>
+    <div class="project-info">
+      <h2>Beerlista</h2>
+      <p>A modern web app to track, rate, and share your favorite beers.</p>
+    </div>
+  </a>
 
-        <a href="FPV-Drones.html" class="project-card reverse">
-            <div class="project-image">
-                <img src="Photos/Avata.jpg" alt="FPV drone" />
-            </div>
-            <div class="project-info">
-                <h2>FPV Drone Builds</h2>
-                <p>Hand-built FPV drones for racing and cinematic footage. Tuning and acro-ready.</p>
-            </div>
-        </a>
+  <a href="Formula-G.html" class="project-card reverse">
+    <div class="project-image">
+      <img src="Photos/Formula G.jpg" alt="Formula G" />
+    </div>
+    <div class="project-info">
+      <h2>Formula G</h2>
+      <p>Design, analysis, and testing for a student-built race car in collegiate competition.</p>
+    </div>
+  </a>
 
-        <a href="Beerlista.html" class="project-card">
-            <div class="project-image">
-                <img src="Photos/beerlista.jpg" alt="Beerlista app" />
-            </div>
-            <div class="project-info">
-                <h2>Beerlista</h2>
-                <p>A modern web app to track, rate, and share your favorite beers.</p>
-            </div>
-        </a>
+  <a href="Cinematography.html" class="project-card">
+    <div class="project-image">
+      <img src="Photos/place holder G.jpg" alt="Formula G" />
+    </div>
+    <div class="project-info">
+      <h2>Cinematography</h2>
+      <p>idk</p>
+    </div>
+  </a>
+</section>
 
-        <a href="Formula-G.html" class="project-card reverse">
-            <div class="project-image">
-                <img src="Photos/Formula G.jpg" alt="Formula G" />
-            </div>
-            <div class="project-info">
-                <h2>Formula G</h2>
-                <p>Design, analysis, and testing for a student-built race car in collegiate competition.</p>
-            </div>
-        </a>
+<footer class="footer">
+  <p>&copy; 2025 Devon Marlin | <a href="mailto:devon@example.com">Contact Me</a></p>
+</footer>
 
-         <a href="Cinematography.html" class="project-card">
-            <div class="project-image">
-                <img src="Photos/place holder G.jpg" alt="Formula G" />
-            </div>
-            <div class="project-info">
-                <h2>Cinematography</h2>
-                <p>idk</p>
-            </div>
-        </a>
-    </section>
+<script>
+  function updateNavbar() {
+    const navbar = document.querySelector('.navbar');
+    const navLinks = document.getElementById('navLinks');
+    const hamburger = document.getElementById('hamburger');
 
-    <footer class="footer">
-        <p>&copy; 2025 Devon Marlin | <a href="mailto:devon@example.com">Contact Me</a></p>
-    </footer>
+    if (!navbar || !navLinks || !hamburger) return;
 
-      <!-- Your existing HTML content -->
+    // Reset styles to natural horizontal layout
+    hamburger.style.display = 'none';
+    navLinks.style.display = 'flex';
+    navLinks.style.position = 'static';
+    navLinks.style.flexDirection = 'row';
+    navLinks.style.top = '';
+    navLinks.style.right = '';
+    navLinks.style.backgroundColor = '';
+    navLinks.style.borderRadius = '';
+    navLinks.style.padding = '';
+    navLinks.style.boxShadow = '';
+    navLinks.style.zIndex = '';
 
-  <script>
-    function updateNavbar() {
-      const navbar = document.querySelector('.navbar');
-      const navLinks = document.getElementById('navLinks');
-      const hamburger = document.getElementById('hamburger');
+    const navbarWidth = navbar.clientWidth;
+    const navLinksWidth = navLinks.scrollWidth;
 
-      if (!navbar || !navLinks || !hamburger) return;
+    if (navLinksWidth > navbarWidth) {
+      // Nav links overflow, show hamburger
+      hamburger.style.display = 'block';
+      navLinks.style.display = 'none';
 
-      // Reset styles to natural horizontal layout
+      hamburger.onclick = () => {
+        if (navLinks.style.display === 'flex') {
+          navLinks.style.display = 'none';
+        } else {
+          navLinks.style.display = 'flex';
+          navLinks.style.flexDirection = 'column';
+          navLinks.style.position = 'absolute';
+          navLinks.style.top = '50px';
+          navLinks.style.right = '20px';
+          navLinks.style.backgroundColor = '#111';
+          navLinks.style.borderRadius = '8px';
+          navLinks.style.padding = '10px 0';
+          navLinks.style.boxShadow = '0 4px 10px rgba(0,0,0,0.3)';
+          navLinks.style.zIndex = '999';
+        }
+      };
+    } else {
+      // Nav fits, no hamburger
       hamburger.style.display = 'none';
       navLinks.style.display = 'flex';
-      navLinks.style.position = 'static';
-      navLinks.style.flexDirection = 'row';
-      navLinks.style.top = '';
-      navLinks.style.right = '';
-      navLinks.style.backgroundColor = '';
-      navLinks.style.borderRadius = '';
-      navLinks.style.padding = '';
-      navLinks.style.boxShadow = '';
-      navLinks.style.zIndex = '';
-
-      const navbarWidth = navbar.clientWidth;
-      const navLinksWidth = navLinks.scrollWidth;
-
-      if (navLinksWidth > navbarWidth) {
-        // Nav links overflow, show hamburger
-        hamburger.style.display = 'block';
-        navLinks.style.display = 'none';
-
-        hamburger.onclick = () => {
-          if (navLinks.style.display === 'flex') {
-            navLinks.style.display = 'none';
-          } else {
-            navLinks.style.display = 'flex';
-            navLinks.style.flexDirection = 'column';
-            navLinks.style.position = 'absolute';
-            navLinks.style.top = '50px';
-            navLinks.style.right = '20px';
-            navLinks.style.backgroundColor = '#111';
-            navLinks.style.borderRadius = '8px';
-            navLinks.style.padding = '10px 0';
-            navLinks.style.boxShadow = '0 4px 10px rgba(0,0,0,0.3)';
-            navLinks.style.zIndex = '999';
-          }
-        };
-      } else {
-        // Nav fits, no hamburger
-        hamburger.style.display = 'none';
-        navLinks.style.display = 'flex';
-        hamburger.onclick = null;
-      }
+      hamburger.onclick = null;
     }
+  }
 
-    window.addEventListener('load', updateNavbar);
-    window.addEventListener('resize', updateNavbar);
-  </script>
+  window.addEventListener('load', updateNavbar);
+  window.addEventListener('resize', updateNavbar);
+</script>
 </body>
 </html>
-

@@ -35,7 +35,7 @@ html, body {
   gap: 25px;
   flex-wrap: nowrap;
   justify-content: center;
-  position: static; /* default position */
+  position: static;
   flex-direction: row;
 }
 
@@ -56,7 +56,7 @@ html, body {
 
 /* Hamburger menu - hidden on desktop */
 .hamburger {
-  display: none; /* hidden by default */
+  display: none;
   position: absolute;
   top: 15px;
   right: 20px;
@@ -64,6 +64,41 @@ html, body {
   color: white;
   cursor: pointer;
   user-select: none;
+}
+
+/* Responsive Breakpoints */
+@media (max-width: 768px) {
+  /* Show hamburger */
+  .hamburger {
+    display: block;
+  }
+
+  /* Hide nav links container completely on small screens */
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: 55px;
+    right: 20px;
+    background-color: #111;
+    flex-direction: column;
+    width: 200px;
+    padding: 10px 0;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    z-index: 999;
+  }
+
+  /* Show nav links when active */
+  .nav-links.active {
+    display: flex;
+  }
+
+  /* Nav links style in dropdown */
+  .nav-links a {
+    padding: 12px 20px;
+    font-size: 1rem;
+    text-align: left;
+  }
 }
 
 /* Banner */
@@ -296,12 +331,12 @@ html, body {
 
 /* Responsive Breakpoints */
 @media (max-width: 768px) {
-  /* Hamburger visible */
+  /* Show hamburger */
   .hamburger {
     display: block;
   }
 
-  /* Hide nav links by default */
+  /* Hide nav links container completely on small screens */
   .nav-links {
     display: none;
     position: absolute;
@@ -321,7 +356,7 @@ html, body {
     display: flex;
   }
 
-  /* Nav links in hamburger dropdown */
+  /* Nav links style in dropdown */
   .nav-links a {
     padding: 12px 20px;
     font-size: 1rem;
