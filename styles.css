@@ -56,14 +56,13 @@ html, body {
 
 /* Hamburger menu - hidden on desktop */
 .hamburger {
-  display: none;
-  position: absolute;
+  position: fixed;
   top: 15px;
   right: 20px;
   font-size: 2rem;
-  color: rgb(255, 0, 0);
+  color: white;
+  z-index: 9999;
   cursor: pointer;
-  user-select: none;
 }
 
 /* Responsive Breakpoints */
