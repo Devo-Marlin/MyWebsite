@@ -61,7 +61,7 @@ html, body {
   top: 15px;
   right: 20px;
   font-size: 2rem;
-  color: white;
+  color: rgb(255, 0, 0);
   cursor: pointer;
   user-select: none;
 }
