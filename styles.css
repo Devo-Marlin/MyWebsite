@@ -33,8 +33,10 @@ html, body {
 .nav-links {
   display: flex;
   gap: 25px;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   justify-content: center;
+  position: static; /* default position */
+  flex-direction: row;
 }
 
 .nav-links a {
@@ -54,7 +56,7 @@ html, body {
 
 /* Hamburger menu - hidden on desktop */
 .hamburger {
-  display: none;
+  display: none; /* hidden by default */
   position: absolute;
   top: 15px;
   right: 20px;

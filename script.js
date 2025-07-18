@@ -12,4 +12,6 @@ document.addEventListener("DOMContentLoaded", function() {
         signupSuccessMessage.style.display = "block";
         signupForm.reset();
     });
+    
 });
+

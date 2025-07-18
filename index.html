@@ -106,5 +106,65 @@
     <footer class="footer">
         <p>&copy; 2025 Devon Marlin | <a href="mailto:devon@example.com">Contact Me</a></p>
     </footer>
+
+      <!-- Your existing HTML content -->
+
+  <script>
+    function updateNavbar() {
+      const navbar = document.querySelector('.navbar');
+      const navLinks = document.getElementById('navLinks');
+      const hamburger = document.getElementById('hamburger');
+
+      if (!navbar || !navLinks || !hamburger) return;
+
+      // Reset styles to natural horizontal layout
+      hamburger.style.display = 'none';
+      navLinks.style.display = 'flex';
+      navLinks.style.position = 'static';
+      navLinks.style.flexDirection = 'row';
+      navLinks.style.top = '';
+      navLinks.style.right = '';
+      navLinks.style.backgroundColor = '';
+      navLinks.style.borderRadius = '';
+      navLinks.style.padding = '';
+      navLinks.style.boxShadow = '';
+      navLinks.style.zIndex = '';
+
+      const navbarWidth = navbar.clientWidth;
+      const navLinksWidth = navLinks.scrollWidth;
+
+      if (navLinksWidth > navbarWidth) {
+        // Nav links overflow, show hamburger
+        hamburger.style.display = 'block';
+        navLinks.style.display = 'none';
+
+        hamburger.onclick = () => {
+          if (navLinks.style.display === 'flex') {
+            navLinks.style.display = 'none';
+          } else {
+            navLinks.style.display = 'flex';
+            navLinks.style.flexDirection = 'column';
+            navLinks.style.position = 'absolute';
+            navLinks.style.top = '50px';
+            navLinks.style.right = '20px';
+            navLinks.style.backgroundColor = '#111';
+            navLinks.style.borderRadius = '8px';
+            navLinks.style.padding = '10px 0';
+            navLinks.style.boxShadow = '0 4px 10px rgba(0,0,0,0.3)';
+            navLinks.style.zIndex = '999';
+          }
+        };
+      } else {
+        // Nav fits, no hamburger
+        hamburger.style.display = 'none';
+        navLinks.style.display = 'flex';
+        hamburger.onclick = null;
+      }
+    }
+
+    window.addEventListener('load', updateNavbar);
+    window.addEventListener('resize', updateNavbar);
+  </script>
 </body>
 </html>
+
