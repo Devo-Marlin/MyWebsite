@@ -19,11 +19,14 @@ html, body {
   padding: 15px 20px;
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
 }
 
 .nav-links {
   display: flex;
   gap: 25px;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .nav-links a {
@@ -83,11 +86,20 @@ html, body {
 .welcome-text {
   max-width: 500px;
   padding: 1rem;
+  flex: 1;
 }
 
 .welcome-text h1 {
   font-size: 2.5rem;
   margin-bottom: 1rem;
+}
+
+.welcome-images {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+  flex: 1;
 }
 
 .welcome-images img {
@@ -108,6 +120,7 @@ html, body {
 
 .project-card {
   display: flex;
+  flex-wrap: wrap;
   background-color: #fff;
   border-radius: 10px;
   overflow: hidden;
@@ -132,6 +145,7 @@ html, body {
 }
 
 .project-info {
+  flex: 1;
   padding: 1.5rem;
 }
 
@@ -146,7 +160,47 @@ html, body {
   color: #666;
 }
 
-/* Vlog Section */
+/* Footer */
+.footer {
+  text-align: center;
+  padding: 1rem;
+  background-color: #1f1f1f;
+  color: white;
+}
+
+.footer a {
+  color: white;
+  text-decoration: none;
+}
+
+.footer a:hover {
+  text-decoration: underline;
+}
+
+/* Back Button */
+.back-button-container {
+  text-align: center;
+  margin: 40px 0;
+}
+
+.back-button {
+  background-color: #000;
+  color: #fff;
+  padding: 12px 20px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: background-color 0.3s, box-shadow 0.3s;
+  display: inline-block;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.6);
+}
+
+.back-button:hover {
+  background-color: #333;
+}
+
+/* Vlog Section (Same from original, left untouched) */
 .vlog-container {
   max-width: 1000px;
   margin: 40px auto 60px;
@@ -218,59 +272,54 @@ html, body {
   font-style: italic;
 }
 
-/* Back Button */
-.back-button-container {
-  text-align: center;
-  margin: 40px 0;
-}
-
-.back-button {
-  background-color: #000;
-  color: #fff;
-  padding: 12px 20px;
-  border-radius: 6px;
-  text-decoration: none;
-  font-size: 1rem;
-  font-weight: 600;
-  transition: background-color 0.3s, box-shadow 0.3s;
-  display: inline-block;
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.6);
-}
-
-.back-button:hover {
-  background-color: #333;
-}
-
-/* Footer */
-.footer {
-  text-align: center;
-  padding: 1rem;
-  background-color: #1f1f1f;
-  color: white;
-}
-
-.footer a {
-  color: white;
-  text-decoration: none;
-}
-
-.footer a:hover {
-  text-decoration: underline;
-}
-
-/* Responsive */
+/* Responsive Breakpoints */
 @media (max-width: 768px) {
-  .vlog-entry, .vlog-entry.reverse {
+  .project-card, .project-card.reverse {
     flex-direction: column;
+    align-items: center;
   }
 
-  .vlog-photo, .vlog-text {
-    min-width: 100%;
+  .project-image img {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .project-info {
+    padding: 1rem;
   }
 
   .banner-text {
     font-size: 2rem;
     white-space: normal;
     padding: 0 10px;
+  }
+
+  .welcome-text h1 {
+    font-size: 2rem;
+  }
+
+  .welcome-images img {
+    width: 100%;
+    max-width: 160px;
+  }
+}
+
+@media (max-width: 480px) {
+  .nav-links {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .banner-text {
+    font-size: 1.5rem;
+  }
+
+  .welcome-text h1 {
+    font-size: 1.7rem;
+  }
+
+  .project-info h2 {
+    font-size: 1.5rem;
   }
 }
