@@ -1,31 +1,86 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Devon Marlin Portfolio</title>
-        <link rel="stylesheet" type="text/css" href="styles.css">
-    </head>
-    <body>
-        <!-- Navigation Bar -->
-        <nav class="navbar">
-            <div class="banner-container">
-                <img src="Photos/Photo.JPG" alt="Devon Marlin Logo" class="navbar-banner">
-                <div class="banner-text">Digital Portfolio</div>
-            </div>
-            <div class="nav-links">
-                <a href="Miata.html">Miata</a>
-                <a href="FPV-Drones.html">FPV Drones</a>
-                <a href="Beerlista.html">Beerlista</a>
-                <a href="Formula-G.html">Formula G</a>
-                <a href="Miata.html">Miata</a>
-            </div>
-        </nav>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Devon Marlin Portfolio</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="Miata.html">Miata</a>
+            <a href="FPV-Drones.html">FPV Drones</a>
+            <a href="Beerlista.html">Beerlista</a>
+            <a href="Formula-G.html">Formula G</a>
+        </div>
+    </nav>
 
-        <!-- Welcome Section -->
-        <section class="welcome-section">
-            <h1>Welcome to My Portfolio</h1>
-            <p>Hello! I'm Devon Marlin, a passionate web developer specializing in creating modern, responsive websites. Explore my projects below to see my work!</p>
-        </section>
-    </body>
+    <div class="banner-container">
+        <img src="Photos/Photo.JPG" alt="Banner" class="banner-image" />
+        <div class="banner-text">Devon Marlin</div>
+    </div>
+
+    <section class="welcome-section">
+        <div class="welcome-text">
+            <h1>Hi, I'm Devon</h1>
+            <p>
+                I'm an engineering student with a passion for building cars, drones, and tech projects.
+                I'm currently attending [Your School Name].
+                This portfolio showcases my work and creative journey.
+            </p>
+        </div>
+        <div class="welcome-images">
+            <img src="me1.jpg" alt="Devon at work" />
+            <img src="me2.jpg" alt="Devon with drone" />
+        </div>
+    </section>
+
+    <section class="projects-container">
+        <a href="Miata.html" class="project-card">
+            <div class="project-image">
+                <img src="Photos/Miata.jpg" alt="Miata project" />
+            </div>
+            <div class="project-info">
+                <h2>Miata Track Build</h2>
+                <p>A lightweight cornering machine that doubles as a show car. Custom everything.</p>
+            </div>
+        </a>
+
+        <a href="FPV-Drones.html" class="project-card reverse">
+            <div class="project-image">
+                <img src="drone.jpg" alt="FPV drone" />
+            </div>
+            <div class="project-info">
+                <h2>FPV Drone Builds</h2>
+                <p>Hand-built FPV drones for racing and cinematic footage. Tuning and acro-ready.</p>
+            </div>
+        </a>
+
+        <a href="Beerlista.html" class="project-card">
+            <div class="project-image">
+                <img src="beerlista.jpg" alt="Beerlista app" />
+            </div>
+            <div class="project-info">
+                <h2>Beerlista</h2>
+                <p>A modern web app to track, rate, and share your favorite beers.</p>
+            </div>
+        </a>
+
+        <a href="Formula-G.html" class="project-card reverse">
+            <div class="project-image">
+                <img src="formula.jpg" alt="Formula G" />
+            </div>
+            <div class="project-info">
+                <h2>Formula G</h2>
+                <p>Design, analysis, and testing for a student-built race car in collegiate competition.</p>
+            </div>
+        </a>
+    </section>
+
+    <footer class="footer">
+        <p>&copy; 2025 Devon Marlin | <a href="mailto:devon@example.com">Contact Me</a></p>
+    </footer>
+</body>
 </html>

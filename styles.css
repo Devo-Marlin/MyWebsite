@@ -1,122 +1,668 @@
-/* Reset default margin and padding */
-html, body {
-    margin: 0;
-    padding: 0;
-    width: 100%; /* Ensure the body spans the full width */
+/* Reset & Base */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', sans-serif;
 }
 
-/* Global styles */
 body {
-    font-family: Arial, sans-serif;
-    background-color: black;
-    color: white; /* Set default text color to white */
+  background-color: #f5f5f5;
+  color: #333;
+  line-height: 1.6;
 }
 
-h1, p {
-    color: white; /* Ensure all headings and paragraphs have white text */
-}
-
-/* Navigation bar styles */
+/* Navbar */
 .navbar {
-    width: 100%; /* Full width */
-    display: flex;
-    flex-direction: column; /* Stack banner and links vertically */
-    align-items: center; /* Center content horizontally */
-    padding: 0;
-    margin: 0;
-}
-
-.nav-links {
-    display: flex; /* Use Flexbox for links */
-    justify-content: center; /* Center links horizontally */
-    gap: 20px; /* Add spacing between links */
-    margin: 10px 0; /* Add spacing below the banner */
+  background-color: #1f1f1f;
+  padding: 1rem;
+  text-align: center;
 }
 
 .nav-links a {
-    display: inline-block; /* Make links behave like buttons */
-    padding: 10px 20px; /* Add consistent padding */
-    margin: 5px; /* Add spacing between buttons */
-    color: rgb(255, 255, 255); /* White text */
-    text-decoration: none; /* Remove underline */
-    border: 2px solid rgb(255, 255, 255); /* Add border */
-    border-radius: 5px; /* Slightly round corners */
-    font-weight: bold; /* Bold text */
-    text-align: center; /* Center text inside button */
-    width: 150px; /* Fixed width for buttons */
-    transition: background-color 0.3s ease; /* Smooth hover effect */
+  color: white;
+  text-decoration: none;
+  margin: 0 15px;
+  font-weight: bold;
+  transition: color 0.3s;
 }
 
 .nav-links a:hover {
-    background-color: rgb(255, 0, 0); /* Red background on hover */
-    color: rgb(20, 34, 104); /* Change text color on hover */
+  color: #f39c12;
 }
 
-/* Banner styles */
+/* Banner */
 .banner-container {
     position: relative;
-    width: 100%; /* Full width */
-    height: 200px; /* Fixed height */
-    overflow: hidden; /* Crop content outside container */
+    width: 100%;
+    height: 300px;
+    overflow: hidden;
+}
+
+.banner-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
 }
 
 .banner-text {
     position: absolute;
-    top: 50%;         /* Center vertically */
-    left: 50%;        /* Center horizontally */
+    top: 50%;
+    left: 50%;
     transform: translate(-50%, -50%);
-    color: white;     /* Make it stand out */
-    font-size: 2rem;  /* Adjust as needed */
+    font-size: 3.5rem;
     font-weight: bold;
-    text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.6); /* Optional but helpful for readability */
+    color: white;
+    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.7);
+    text-align: center;
 }
 
-.navbar-banner {
-    width: 100%; /* Full width */
-    height: 100%; /* Fill container height */
-    object-fit: cover; /* Crop image to fit container */
-    object-position: 50% 70%; /* Center horizontally, move up slightly */
-    display: block; /* Block-level element */
-}
-
-/* Welcome section styles */
+/* Welcome Section */
 .welcome-section {
-    text-align: center; /* Center text */
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-around;
+  padding: 3rem 2rem;
+  background-color: #fff;
 }
 
-.welcome-section h1 {
-    font-size: 36px; /* Heading font size */
+.welcome-text {
+  max-width: 500px;
+  padding: 1rem;
 }
 
-.welcome-section p {
-    font-size: 18px; /* Paragraph font size */
-    margin: 20px 0; /* Add spacing below paragraph */
+.welcome-text h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
 }
 
-.welcome-section .arrow-icon {
-    font-size: 24px; /* Arrow icon font size */
+.welcome-images img {
+  width: 200px;
+  height: auto;
+  margin: 0.5rem;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
 }
 
-/* Project section styles */
-.project-section h1, .project-section p {
-    color: white; /* Ensure text is white */
+/* Project Cards */
+.projects-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 2rem;
 }
 
-/* Contact section styles */
-.contact-section h1, .contact-section p {
-    color: white; /* Ensure text is white */
+.project-card {
+  display: flex;
+  background-color: #ffffff;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.2s;
+}
+
+.project-card.reverse {
+  flex-direction: row-reverse;
+}
+
+.project-card:hover {
+  transform: scale(1.02);
+}
+
+.project-image img {
+  width: 250px;
+  height: auto;
+  object-fit: cover;
+}
+
+.project-info {
+  padding: 1.5rem;
+}
+
+.project-info h2 {
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
+  color: #222;
+}
+
+.project-info p {
+  font-size: 1rem;
+  color: #666;
+}
+
+/* Footer */
+.footer {
+  text-align: center;
+  padding: 1rem;
+  background-color: #1f1f1f;
+  color: white;
+  margin-top: 3rem;
+}
+
+.footer a {
+  color: #f39c12;
+  text-decoration: none;
+}
+
+.footer a:hover {
+  text-decoration: underline;
+}
+
+.vlog-container {
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 0 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+}
+
+.vlog-entry {
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.vlog-entry.reverse {
+    flex-direction: row-reverse;
+}
+
+.vlog-text {
+    flex: 1;
+}
+
+.vlog-text h2 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+.vlog-text p {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #444;
+}
+
+.vlog-photo {
+    flex: 1;
+    text-align: center;
+}
+
+.vlog-photo img {
+    max-width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.vlog-photo label {
+    display: block;
+    margin-top: 10px;
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.back-button-container {
+    text-align: center;
+    margin-top: 40px;
 }
 
 .back-button {
-    margin: 20px;
-    padding: 10px 20px;
+    background-color: #222;
+    color: #fff;
+    padding: 12px 20px;
+    text-decoration: none;
+    border-radius: 6px;
     font-size: 1rem;
-    background-color: #eee;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.2s;
+    transition: background-color 0.3s;
 }
+
 .back-button:hover {
-    background-color: #ddd;
+    background-color: #444;
+}
+
+.vlog-container {
+  max-width: 1000px;
+  margin: 40px auto;
+  padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+}
+
+.vlog-entry {
+  display: flex;
+  flex-direction: row;
+  gap: 30px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.vlog-entry.reverse {
+  flex-direction: row-reverse;
+}
+
+.vlog-text {
+  flex: 1;
+}
+
+.vlog-text h2 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.vlog-text p {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #444;
+}
+
+.vlog-photo {
+  flex: 1;
+  text-align: center;
+}
+
+.vlog-photo img {
+  max-width: 100%;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.vlog-photo label {
+  display: block;
+  margin-top: 10px;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.back-button-container {
+  text-align: center;
+  margin-top: 40px;
+}
+
+.back-button {
+  background-color: #222;
+  color: #fff;
+  padding: 12px 20px;
+  text-decoration: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: background-color 0.3s;
+}
+
+.back-button:hover {
+  background-color: #444;
+}
+
+
+/* Reset default margin and padding */
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  font-family: Arial, sans-serif;
+  background-color: #f9f9f9;
+  color: #222;
+}
+
+/* Navbar styles */
+.navbar {
+  background-color: #111;
+  padding: 15px 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.nav-links {
+  display: flex;
+  gap: 25px;
+}
+
+.nav-links a {
+  color: #eee;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 6px 12px;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+
+.nav-links a:hover {
+  background-color: #e03e3e;
+  color: white;
+}
+
+/* Banner styles */
+.banner-container {
+  position: relative;
+  width: 100%;
+  height: 250px;
+  overflow: hidden;
+  margin-bottom: 40px;
+}
+
+.banner-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.65);
+}
+
+.banner-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 3rem;
+  font-weight: 700;
+  text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.75);
+  white-space: nowrap;
+}
+
+/* Main vlog container */
+.vlog-container {
+  max-width: 1000px;
+  margin: 0 auto 60px;
+  padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+}
+
+/* Individual vlog entry */
+.vlog-entry {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  align-items: center;
+  background: white;
+  padding: 25px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  transition: box-shadow 0.3s;
+}
+
+.vlog-entry:hover {
+  box-shadow: 0 8px 20px rgba(224, 62, 62, 0.3);
+}
+
+/* Alternate layout */
+.vlog-entry.reverse {
+  flex-direction: row-reverse;
+}
+
+/* Text content */
+.vlog-text {
+  flex: 1;
+  min-width: 280px;
+}
+
+.vlog-text h2 {
+  font-size: 1.8rem;
+  margin-bottom: 12px;
+  color: #e03e3e;
+}
+
+.vlog-text p {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #444;
+}
+
+/* Photo content */
+.vlog-photo {
+  flex: 1;
+  min-width: 280px;
+  text-align: center;
+}
+
+.vlog-photo img {
+  max-width: 100%;
+  border-radius: 10px;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+  transition: transform 0.3s;
+}
+
+.vlog-photo img:hover {
+  transform: scale(1.03);
+}
+
+.vlog-photo label {
+  display: block;
+  margin-top: 10px;
+  font-size: 0.9rem;
+  color: #777;
+  font-style: italic;
+}
+
+/* Back button container */
+.back-button-container {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+/* Back button styling */
+.back-button {
+  background-color: #e03e3e;
+  color: white;
+  padding: 14px 30px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1rem;
+  box-shadow: 0 3px 8px rgba(224, 62, 62, 0.7);
+  transition: background-color 0.3s, box-shadow 0.3s;
+  display: inline-block;
+}
+
+.back-button:hover {
+  background-color: #b12c2c;
+  box-shadow: 0 6px 16px rgba(177, 44, 44, 0.9);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .vlog-entry, .vlog-entry.reverse {
+    flex-direction: column;
+  }
+  
+  .vlog-photo, .vlog-text {
+    min-width: 100%;
+  }
+  
+  .banner-text {
+    font-size: 2rem;
+    white-space: normal;
+    padding: 0 10px;
+  }
+}
+
+/* Reset default margin and padding */
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  font-family: Arial, sans-serif;
+  background-color: #f9f9f9;
+  color: #222;
+}
+
+/* Navbar styles */
+.navbar {
+  background-color: #111;
+  padding: 15px 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.nav-links {
+  display: flex;
+  gap: 25px;
+}
+
+.nav-links a {
+  color: #eee;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 6px 12px;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+
+.nav-links a:hover {
+  background-color: #e03e3e;
+  color: white;
+}
+
+/* Banner styles */
+.banner-container {
+  position: relative;
+  width: 100%;
+  height: 250px;
+  overflow: hidden;
+  margin-bottom: 40px;
+}
+
+.banner-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.65);
+}
+
+.banner-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 3rem;
+  font-weight: 700;
+  text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.75);
+  white-space: nowrap;
+}
+
+/* Main vlog container */
+.vlog-container {
+  max-width: 1000px;
+  margin: 0 auto 60px;
+  padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+}
+
+/* Individual vlog entry */
+.vlog-entry {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  align-items: center;
+  background: white;
+  padding: 25px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  transition: box-shadow 0.3s;
+}
+
+.vlog-entry:hover {
+  box-shadow: 0 8px 20px rgba(224, 62, 62, 0.3);
+}
+
+/* Alternate layout */
+.vlog-entry.reverse {
+  flex-direction: row-reverse;
+}
+
+/* Text content */
+.vlog-text {
+  flex: 1;
+  min-width: 280px;
+}
+
+.vlog-text h2 {
+  font-size: 1.8rem;
+  margin-bottom: 12px;
+  color: #e03e3e;
+}
+
+.vlog-text p {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #444;
+}
+
+/* Photo content */
+.vlog-photo {
+  flex: 1;
+  min-width: 280px;
+  text-align: center;
+}
+
+.vlog-photo img {
+  max-width: 100%;
+  border-radius: 10px;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+  transition: transform 0.3s;
+}
+
+.vlog-photo img:hover {
+  transform: scale(1.03);
+}
+
+.vlog-photo label {
+  display: block;
+  margin-top: 10px;
+  font-size: 0.9rem;
+  color: #777;
+  font-style: italic;
+}
+
+/* Back button container */
+.back-button-container {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+/* Back button styling */
+.back-button {
+  background-color: #e03e3e;
+  color: white;
+  padding: 14px 30px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1rem;
+  box-shadow: 0 3px 8px rgba(224, 62, 62, 0.7);
+  transition: background-color 0.3s, box-shadow 0.3s;
+  display: inline-block;
+}
+
+.back-button:hover {
+  background-color: #b12c2c;
+  box-shadow: 0 6px 16px rgba(177, 44, 44, 0.9);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .vlog-entry, .vlog-entry.reverse {
+    flex-direction: column;
+  }
+  
+  .vlog-photo, .vlog-text {
+    min-width: 100%;
+  }
+  
+  .banner-text {
+    font-size: 2rem;
+    white-space: normal;
+    padding: 0 10px;
+  }
 }

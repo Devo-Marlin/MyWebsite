@@ -1,27 +1,66 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Beerlista - Devon Marlin Portfolio</title>
-        <link rel="stylesheet" type="text/css" href="styles.css">
-    </head>
-    <body>
-        <!-- Navigation Bar -->
-        <nav class="navbar">
-            <div class="nav-links">
-                <a href="Miata.html">Miata</a>
-                <a href="FPV-Drones.html">FPV Drones</a>
-                <a href="Beerlista.html">Beerlista</a>
-                <a href="Formula-G.html">Formula G</a>
-                <a href="Miata.html">Miata</a>
-            </div>
-        </nav>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Beerlista Vlog - Devon Marlin Portfolio</title>
+  <link rel="stylesheet" type="text/css" href="styles.css" />
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="Miata.html">Miata</a>
+      <a href="FPV-Drones.html">FPV Drones</a>
+      <a href="Beerlista.html">Beerlista</a>
+      <a href="Formula-G.html">Formula G</a>
+    </div>
+  </nav>
 
-        <section class="project-section">
-            <button onclick="history.back()" class="back-button">← Back</button>
-            <h1>Beerlista</h1>
-            <p>This project showcases a dynamic web application built using React.js and Node.js. It includes features like user authentication, real-time data updates, and a clean, intuitive user interface.</p>
-        </section>
-    </body>
+  <header class="banner-container">
+    <img src="Photos/beerlista-banner.jpg" alt="Beerlista Banner" class="banner-image" />
+    <div class="banner-text">Beerlista Vlog</div>
+  </header>
+
+  <main class="vlog-container">
+
+    <section class="vlog-entry">
+      <div class="vlog-text">
+        <h2>Day 1 – Project Initialization & React Setup</h2>
+        <p>Set up the React frontend environment and created initial component architecture. Established routing and basic UI elements.</p>
+      </div>
+      <div class="vlog-photo">
+        <img src="Photos/beerlista-placeholder1.jpg" alt="React setup screenshot" />
+        <label>React frontend architecture</label>
+      </div>
+    </section>
+
+    <section class="vlog-entry reverse">
+      <div class="vlog-text">
+        <h2>Day 2 – Backend & Database Integration</h2>
+        <p>Implemented Node.js backend with Express and connected to real-time database for user data management and beer listings.</p>
+      </div>
+      <div class="vlog-photo">
+        <img src="Photos/beerlista-placeholder2.jpg" alt="Backend API integration" />
+        <label>Node.js backend and database</label>
+      </div>
+    </section>
+
+    <section class="vlog-entry">
+      <div class="vlog-text">
+        <h2>Day 3 – Authentication & Responsive UI</h2>
+        <p>Added user authentication flows and enhanced the UI to be fully responsive across devices, including mobile and tablets.</p>
+      </div>
+      <div class="vlog-photo">
+        <img src="Photos/beerlista-placeholder3.jpg" alt="Responsive UI" />
+        <label>User authentication and responsive design</label>
+      </div>
+    </section>
+
+    <div class="back-button-container">
+      <a href="index.html" class="back-button">← Back to Home</a>
+    </div>
+
+  </main>
+</body>
 </html>

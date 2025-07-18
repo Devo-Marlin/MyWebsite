@@ -1,27 +1,66 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>FPV Drones - Devon Marlin Portfolio</title>
-        <link rel="stylesheet" type="text/css" href="styles.css">
-    </head>
-    <body>
-        <!-- Navigation Bar -->
-        <nav class="navbar">
-            <div class="nav-links">
-                <a href="Miata.html">Miata</a>
-                <a href="FPV-Drones.html">FPV Drones</a>
-                <a href="Beerlista.html">Beerlista</a>
-                <a href="Formula-G.html">Formula G</a>
-                <a href="Miata.html">Miata</a>
-            </div>
-        </nav>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>FPV Drones Vlog - Devon Marlin Portfolio</title>
+  <link rel="stylesheet" type="text/css" href="styles.css" />
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="Miata.html">Miata</a>
+      <a href="FPV-Drones.html">FPV Drones</a>
+      <a href="Beerlista.html">Beerlista</a>
+      <a href="Formula-G.html">Formula G</a>
+    </div>
+  </nav>
 
-        <section class="project-section">
-            <button onclick="history.back()" class="back-button">← Back</button>
-            <h1>FPV Dones</h1>
-            <p>This project is an example of a responsive website built using HTML, CSS, and JavaScript. It features a modern design, interactive elements, and optimized performance for both desktop and mobile devices.</p>
-        </section>
-    </body>
+  <header class="banner-container">
+    <img src="Photos/fpv-banner.jpg" alt="FPV Drones Banner" class="banner-image" />
+    <div class="banner-text">FPV Drones Vlog</div>
+  </header>
+
+  <main class="vlog-container">
+
+    <section class="vlog-entry">
+      <div class="vlog-text">
+        <h2>Day 1 – Frame Assembly</h2>
+        <p>Started assembling the new FPV drone frame today. Tested fitment for the motors and ran wiring layouts. Planning the camera mount placement for optimal cinematic shots.</p>
+      </div>
+      <div class="vlog-photo">
+        <img src="Photos/fpv-placeholder1.jpg" alt="Drone frame assembly" />
+        <label>Frame assembly in progress</label>
+      </div>
+    </section>
+
+    <section class="vlog-entry reverse">
+      <div class="vlog-text">
+        <h2>Day 2 – Flight Controller Setup</h2>
+        <p>Configured the flight controller firmware and calibrated sensors. Tinkered with PID settings for better stability and responsiveness. Ready for the first test flight tomorrow!</p>
+      </div>
+      <div class="vlog-photo">
+        <img src="Photos/fpv-placeholder2.jpg" alt="Flight controller setup" />
+        <label>Configuring flight controller</label>
+      </div>
+    </section>
+
+    <section class="vlog-entry">
+      <div class="vlog-text">
+        <h2>Day 3 – First Test Flight</h2>
+        <p>Completed the maiden flight! The drone handled well, but there are some minor tweaks needed to improve agility and video smoothness. Excited to refine the setup further.</p>
+      </div>
+      <div class="vlog-photo">
+        <img src="Photos/fpv-placeholder3.jpg" alt="First test flight" />
+        <label>FPV drone in flight</label>
+      </div>
+    </section>
+
+    <div class="back-button-container">
+      <a href="index.html" class="back-button">← Back to Home</a>
+    </div>
+
+  </main>
+</body>
 </html>
