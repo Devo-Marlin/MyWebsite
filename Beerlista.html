@@ -1,67 +1,246 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Beerlista Vlog - Devon Marlin Portfolio</title>
-  <link rel="stylesheet" type="text/css" href="styles.css" />
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Beerlista | Devon Marlin</title>
+<meta name="description" content="Beerlista — a ballista-inspired mechanical launcher with motorized aiming and pullback, driven by a Raspberry Pi and Arduino with a touchscreen control interface." />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Beerlista" />
+<meta property="og:image" content="Photos/beerlista.jpg" />
+<link rel="icon" type="image/svg+xml" href="Photos/web/favicon.svg" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <nav class="navbar">
-    <div class="nav-links">
-      <a href="index.html">Home</a>
-      <a href="Miata.html">Miata</a>
-      <a href="FPV-Drones.html">FPV Drones</a>
-      <a href="Beerlista.html">Beerlista</a>
-      <a href="Formula-G.html">Formula G</a>
-      <a href="Cinematography.html">Cinematography</a>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="nav-row">
+    <a href="index.html" class="brand"><span class="brand-mark"></span>DEVON MARLIN<small>// PORTFOLIO</small></a>
+    <nav class="nav-links desktop-only" aria-label="Primary">
+      <a href="index.html#work">Work</a>
+      <a href="About.html">About</a>
+      <a href="Cinematography.html">Media</a>
+      <a href="index.html#contact">Contact</a>
+    </nav>
+    <div class="nav-right">
+      <div class="nav-status"><span class="dot"></span>AVAILABLE FOR WORK</div>
+      <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobilePanel">
+        <span></span><span></span><span></span>
+      </button>
     </div>
+  </div>
+</header>
+
+<div class="mobile-panel" id="mobilePanel">
+  <nav class="nav-links" aria-label="Mobile">
+    <a href="index.html#work">Work</a>
+    <a href="About.html">About</a>
+    <a href="Cinematography.html">Media</a>
+    <a href="index.html#contact">Contact</a>
+  </nav>
+  <div class="mobile-panel-foot">
+    <span>DEVON MARLIN</span>
+    <span data-year>2026</span>
+  </div>
+</div>
+
+<main id="main">
+
+  <section class="case-hero container">
+    <div class="case-hero-top reveal">
+      <div class="case-title">
+        <span class="eyebrow">Mechatronics</span>
+        <h1>Beerlista</h1>
+        <p class="text-body-lg case-tagline">An old-style ballista, reimagined as a motorized, touchscreen-controlled launcher — built for fun, engineered for real.</p>
+      </div>
+      <div class="case-meta-strip">
+        <div><div class="label">Type</div><div class="value">Mechanical Launcher</div></div>
+        <div><div class="label">Control</div><div class="value">Touchscreen</div></div>
+        <div><div class="label">Status</div><div class="value">Prototype</div></div>
+        <div><div class="label">Year</div><div class="value">2026</div></div>
+      </div>
+    </div>
+
+    <div class="frame case-hero-frame reveal">
+      <span class="corner tl"></span><span class="corner tr"></span>
+      <span class="corner bl"></span><span class="corner br"></span>
+      <img src="Photos/beerlista.jpg" alt="Beerlista mechanical launcher prototype" />
+      <span class="frame-tag">BUILD // BEERLISTA</span>
+    </div>
+  </section>
+
+  <section class="case-section">
+    <div class="container">
+      <div class="case-section-head reveal">
+        <span class="block-label tech-label">Overview</span>
+        <div><h3>What I wanted to build</h3></div>
+      </div>
+      <div class="case-body reveal">
+        <div></div>
+        <div class="case-copy">
+          <p>
+            Beerlista started as a joke — a small ballista-inspired device
+            built to launch a beer — but the actual engineering problem is a
+            legitimate mechatronics project: a mechanical structure that can
+            aim and adjust launch power under motor control, run from a
+            touchscreen interface, with safety built into the control logic
+            rather than bolted on afterward.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="case-section">
+    <div class="container">
+      <div class="case-section-head reveal">
+        <span class="block-label tech-label">Engineering / Design</span>
+        <div><h3>Structure, actuation, and control</h3></div>
+      </div>
+      <div class="case-body reveal">
+        <div></div>
+        <div class="case-copy">
+          <p>
+            The mechanical side covers the launch structure and mechanism
+            itself, plus motorized aiming and a motorized pullback system so
+            launch power can be adjusted without manually resetting the arm
+            each time.
+          </p>
+          <p>
+            On the electronics side, a Raspberry Pi runs the touchscreen
+            control interface while an Arduino (or similar microcontroller)
+            handles lower-level motor control — a split that keeps the
+            real-time actuation logic separate from the UI layer. Safety
+            considerations around the launch mechanism are factored into the
+            control logic itself, not just the mechanical design.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="case-section">
+    <div class="container">
+      <div class="case-section-head reveal">
+        <span class="block-label tech-label">Build Log</span>
+        <div><h3>Progress, in order</h3></div>
+      </div>
+      <div class="timeline reveal">
+        <div class="timeline-entry">
+          <div class="t-index">01</div>
+          <div>
+            <h4>Structure &amp; Control Architecture</h4>
+            <p>Defined the mechanical structure and launch mechanism, and laid out the split between Raspberry Pi (interface) and microcontroller (motor control).</p>
+          </div>
+        </div>
+        <div class="timeline-entry">
+          <div class="t-index">02</div>
+          <div>
+            <h4>Motorized Aim &amp; Pullback</h4>
+            <p>Implemented motorized aiming and a motorized pullback mechanism for adjustable launch power, wired into the microcontroller.</p>
+          </div>
+        </div>
+        <div class="timeline-entry">
+          <div class="t-index">03</div>
+          <div>
+            <h4>Touchscreen Interface &amp; Safety Logic</h4>
+            <p>Built the touchscreen control interface on the Raspberry Pi and worked safety interlocks into the control flow ahead of live testing.</p>
+            <div class="frame">
+              <span class="corner tl"></span><span class="corner tr"></span>
+              <span class="corner bl"></span><span class="corner br"></span>
+              <img src="Photos/beerlista.jpg" alt="Beerlista control and structure detail" loading="lazy" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="case-section">
+    <div class="container">
+      <div class="case-section-head reveal">
+        <span class="block-label tech-label">Technical Specifications</span>
+        <div><h3>Current build state</h3></div>
+      </div>
+      <div class="case-body reveal">
+        <div></div>
+        <div class="specs-table">
+          <div class="spec-row"><div class="spec-label">Structure</div><div class="spec-value">Ballista-inspired mechanical frame</div></div>
+          <div class="spec-row"><div class="spec-label">Actuation</div><div class="spec-value">Motorized aiming + motorized pullback</div></div>
+          <div class="spec-row"><div class="spec-label">Control</div><div class="spec-value">Raspberry Pi (UI) + Arduino / microcontroller (motors)</div></div>
+          <div class="spec-row"><div class="spec-label">Interface</div><div class="spec-value">Touchscreen</div></div>
+          <div class="spec-row"><div class="spec-label">Status</div><div class="spec-value">Prototype</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="case-section">
+    <div class="container">
+      <div class="case-section-head reveal">
+        <span class="block-label tech-label">Results / Lessons</span>
+        <div><h3>What's held up, what hasn't</h3></div>
+      </div>
+      <div class="results-grid reveal">
+        <div class="result-card">
+          <span class="tech-label accent">Worked</span>
+          <p>Splitting the UI (Raspberry Pi) from real-time motor control (microcontroller) kept the touchscreen interface responsive without competing for timing with the actuators.</p>
+        </div>
+        <div class="result-card">
+          <span class="tech-label accent">Learned</span>
+          <p>Motorizing the pullback mechanism made power adjustment far more repeatable than a manual reset — worth the added complexity.</p>
+        </div>
+        <div class="result-card">
+          <span class="tech-label accent">Next</span>
+          <p>Continue refining the safety interlocks and touchscreen UI ahead of broader testing.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <nav class="case-nav container">
+    <a href="FPV-Drones.html" class="link-sweep">← Previous: FPV Drone Development</a>
+    <a href="Formula-G.html" class="link-sweep">Next: Formula G →</a>
   </nav>
 
-  <header class="banner-container">
-    <img src="Photos/beerlista-banner.jpg" alt="Beerlista Banner" class="banner-image" />
-    <div class="banner-text">Beerlista Vlog</div>
-  </header>
+</main>
 
-  <main class="vlog-container">
-
-    <section class="vlog-entry">
-      <div class="vlog-text">
-        <h2>Day 1 – Project Initialization & React Setup</h2>
-        <p>Set up the React frontend environment and created initial component architecture. Established routing and basic UI elements.</p>
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="index.html" class="brand"><span class="brand-mark"></span>DEVON MARLIN</a>
+        <p>Engineering, fabrication, and media — designed, built, and documented in one place.</p>
       </div>
-      <div class="vlog-photo">
-        <img src="Photos/beerlista-placeholder1.jpg" alt="React setup screenshot" />
-        <label>React frontend architecture</label>
+      <div class="footer-col">
+        <h5>Navigate</h5>
+        <ul>
+          <li><a href="index.html#work">Work</a></li>
+          <li><a href="About.html">About</a></li>
+          <li><a href="Cinematography.html">Media</a></li>
+          <li><a href="index.html#contact">Contact</a></li>
+        </ul>
       </div>
-    </section>
-
-    <section class="vlog-entry reverse">
-      <div class="vlog-text">
-        <h2>Day 2 – Backend & Database Integration</h2>
-        <p>Implemented Node.js backend with Express and connected to real-time database for user data management and beer listings.</p>
+      <div class="footer-col">
+        <h5>Connect</h5>
+        <ul>
+          <li><a href="mailto:contact@devonmarlin.com">Email</a></li>
+          <li><a href="https://github.com/Devo-Marlin" target="_blank" rel="noopener">GitHub</a></li>
+        </ul>
       </div>
-      <div class="vlog-photo">
-        <img src="Photos/beerlista-placeholder2.jpg" alt="Backend API integration" />
-        <label>Node.js backend and database</label>
-      </div>
-    </section>
-
-    <section class="vlog-entry">
-      <div class="vlog-text">
-        <h2>Day 3 – Authentication & Responsive UI</h2>
-        <p>Added user authentication flows and enhanced the UI to be fully responsive across devices, including mobile and tablets.</p>
-      </div>
-      <div class="vlog-photo">
-        <img src="Photos/beerlista.jpg" alt="Responsive UI" />
-        <label>User authentication and responsive design</label>
-      </div>
-    </section>
-
-    <div class="back-button-container">
-      <a href="index.html" class="back-button">← Back to Home</a>
     </div>
+    <div class="footer-bottom">
+      <span>© <span data-year>2026</span> Devon Marlin</span>
+      <span class="status-line"><span class="dot"></span>PORTFOLIO // SYSTEM ONLINE</span>
+    </div>
+  </div>
+</footer>
 
-  </main>
+<script src="script.js"></script>
 </body>
 </html>

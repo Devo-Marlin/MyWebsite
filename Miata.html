@@ -1,67 +1,256 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Miata Build Vlog - Devon Marlin</title>
-    <link rel="stylesheet" href="styles.css" />
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>1991 Mazda MX-5 — Track Build | Devon Marlin</title>
+<meta name="description" content="A track-focused development build of a 1991 Mazda MX-5 Miata — suspension, weight reduction, and mechanical simplicity, documented as it progresses." />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="1991 Mazda MX-5 — Track Build" />
+<meta property="og:image" content="Photos/Miata.jpg" />
+<link rel="icon" type="image/svg+xml" href="Photos/web/favicon.svg" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-    <nav class="navbar">
-        <div class="nav-links">
-            <a href="index.html">Home</a>
-            <a href="Miata.html">Miata</a>
-            <a href="FPV-Drones.html">FPV Drones</a>
-            <a href="Beerlista.html">Beerlista</a>
-            <a href="Formula-G.html">Formula G</a>
-            <a href="Cinematography.html">Cinematography</a>
-        </div>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="nav-row">
+    <a href="index.html" class="brand"><span class="brand-mark"></span>DEVON MARLIN<small>// PORTFOLIO</small></a>
+    <nav class="nav-links desktop-only" aria-label="Primary">
+      <a href="index.html#work">Work</a>
+      <a href="About.html">About</a>
+      <a href="Cinematography.html">Media</a>
+      <a href="index.html#contact">Contact</a>
     </nav>
+    <div class="nav-right">
+      <div class="nav-status"><span class="dot"></span>AVAILABLE FOR WORK</div>
+      <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobilePanel">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
 
-    <header class="banner-container">
-        <img src="your-miata-banner.jpg" alt="Miata Banner" class="banner-image" />
-        <div class="banner-text">Miata Build Vlog</div>
-    </header>
+<div class="mobile-panel" id="mobilePanel">
+  <nav class="nav-links" aria-label="Mobile">
+    <a href="index.html#work">Work</a>
+    <a href="About.html">About</a>
+    <a href="Cinematography.html">Media</a>
+    <a href="index.html#contact">Contact</a>
+  </nav>
+  <div class="mobile-panel-foot">
+    <span>DEVON MARLIN</span>
+    <span data-year>2026</span>
+  </div>
+</div>
 
-    <main class="vlog-container">
+<main id="main">
 
-        <section class="vlog-entry">
-            <div class="vlog-text">
-                <h2>Day 1 – Tear Down Begins</h2>
-                <p>Today I started the Miata build! I stripped off the bumpers, fenders, and interior carpet to prep for rust repair and weight savings. Found a few spots that need patching, but overall, the frame is in great shape.</p>
-            </div>
-            <div class="vlog-photo">
-                <img src="placeholder-day1.jpg" alt="Day 1 - Tear Down">
-                <label>Front end stripped down</label>
-            </div>
-        </section>
+  <section class="case-hero container">
+    <div class="case-hero-top reveal">
+      <div class="case-title">
+        <span class="eyebrow">Vehicle Build</span>
+        <h1>1991 Mazda MX-5<br />Track Development</h1>
+        <p class="text-body-lg case-tagline">A lightweight cornering machine developed toward the track — clean enough to still function as a show car.</p>
+      </div>
+      <div class="case-meta-strip">
+        <div><div class="label">Platform</div><div class="value">NA / MX-5</div></div>
+        <div><div class="label">Focus</div><div class="value">Handling</div></div>
+        <div><div class="label">Status</div><div class="value">Active</div></div>
+        <div><div class="label">Year</div><div class="value">2026</div></div>
+      </div>
+    </div>
 
-        <section class="vlog-entry reverse">
-            <div class="vlog-text">
-                <h2>Day 2 – Chassis Prep & Paint</h2>
-                <p>Cleaned up surface rust, sprayed rust preventative, and hit the engine bay with satin black. It’s already looking way cleaner. Next step is seam sealer and prepping for suspension install.</p>
-            </div>
-            <div class="vlog-photo">
-                <img src="placeholder-day2.jpg" alt="Day 2 - Chassis Paint">
-                <label>Freshly painted engine bay</label>
-            </div>
-        </section>
+    <div class="frame case-hero-frame reveal">
+      <span class="corner tl"></span><span class="corner tr"></span>
+      <span class="corner bl"></span><span class="corner br"></span>
+      <img src="Photos/Miata.jpg" alt="1991 Mazda MX-5 during suspension mockup" />
+      <span class="frame-tag">VEHICLE SYSTEM // MX-5</span>
+    </div>
+  </section>
 
-        <section class="vlog-entry">
-            <div class="vlog-text">
-                <h2>Day 3 – Suspension Mockup</h2>
-                <p>Installed coilovers and test-fit control arms. Seeing it dropped to track height makes it feel real. Can’t wait to corner balance and align. Still working on getting the right wheels and tires.</p>
-            </div>
-            <div class="vlog-photo">
-                <img src="Photos/Miata.jpg" alt="Day 3 - Suspension">
-                <label>Coilovers installed</label>
-            </div>
-        </section>
-
-        <div class="back-button-container">
-            <a href="index.html" class="back-button">← Back to Home</a>
+  <section class="case-section">
+    <div class="container">
+      <div class="case-section-head reveal">
+        <span class="block-label tech-label">Overview</span>
+        <div>
+          <h3>What I wanted to build</h3>
         </div>
+      </div>
+      <div class="case-body reveal">
+        <div></div>
+        <div class="case-copy">
+          <p>
+            The goal for this build isn't outright speed — it's a mechanically
+            simple, reliable NA Miata that rewards good driving inputs and
+            still looks clean enough to show. That means prioritizing weight
+            reduction, suspension geometry, and driver feedback over parts that
+            just look fast.
+          </p>
+          <p>
+            Constraints are mostly self-imposed: keep the car reliable enough
+            to drive regularly, keep modifications reversible where possible,
+            and document every stage so decisions can be revisited later
+            instead of forgotten.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    </main>
+  <section class="case-section">
+    <div class="container">
+      <div class="case-section-head reveal">
+        <span class="block-label tech-label">Engineering / Design</span>
+        <div>
+          <h3>Suspension, weight, and mechanical simplicity</h3>
+        </div>
+      </div>
+      <div class="case-body reveal">
+        <div></div>
+        <div class="case-copy">
+          <p>
+            Early work focused on chassis prep — stripping trim and interior
+            for rust repair and weight savings, then addressing surface rust
+            and refinishing the engine bay before anything mechanical went
+            back on. From there, the build moved into coilover installation
+            and suspension mockup to get the car to ride height before
+            corner-balancing and alignment.
+          </p>
+          <p>
+            The build log below tracks each stage as it happens rather than as
+            a finished write-up — it will keep growing as suspension,
+            wheels/tires, brakes, and interior work progress.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="case-section">
+    <div class="container">
+      <div class="case-section-head reveal">
+        <span class="block-label tech-label">Build Log</span>
+        <div><h3>Progress, in order</h3></div>
+      </div>
+
+      <div class="timeline reveal">
+        <div class="timeline-entry">
+          <div class="t-index">01</div>
+          <div>
+            <h4>Tear Down Begins</h4>
+            <p>Stripped bumpers, fenders, and interior carpet to prep for rust repair and weight savings. A few spots need patching, but the frame is in good shape overall.</p>
+          </div>
+        </div>
+        <div class="timeline-entry">
+          <div class="t-index">02</div>
+          <div>
+            <h4>Chassis Prep &amp; Paint</h4>
+            <p>Cleaned up surface rust, applied rust preventative, and refinished the engine bay in satin black ahead of seam sealer and suspension install.</p>
+          </div>
+        </div>
+        <div class="timeline-entry">
+          <div class="t-index">03</div>
+          <div>
+            <h4>Suspension Mockup</h4>
+            <p>Installed coilovers and test-fit control arms to get the car to track height ahead of corner-balancing, alignment, and wheel/tire selection.</p>
+            <div class="frame">
+              <span class="corner tl"></span><span class="corner tr"></span>
+              <span class="corner bl"></span><span class="corner br"></span>
+              <img src="Photos/Miata.jpg" alt="Coilovers installed on the MX-5" loading="lazy" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="case-section">
+    <div class="container">
+      <div class="case-section-head reveal">
+        <span class="block-label tech-label">Technical Specifications</span>
+        <div><h3>Current build state</h3></div>
+      </div>
+      <div class="case-body reveal">
+        <div></div>
+        <div class="specs-table">
+          <div class="spec-row"><div class="spec-label">Vehicle</div><div class="spec-value">1991 Mazda MX-5 Miata</div></div>
+          <div class="spec-row"><div class="spec-label">Platform</div><div class="spec-value">NA</div></div>
+          <div class="spec-row"><div class="spec-label">Focus</div><div class="spec-value">Handling / Weight / Driver Feedback</div></div>
+          <div class="spec-row"><div class="spec-label">Suspension</div><div class="spec-value">Coilovers installed — corner balance &amp; alignment pending</div></div>
+          <div class="spec-row"><div class="spec-label">Chassis</div><div class="spec-value">Rust repair complete, engine bay refinished</div></div>
+          <div class="spec-row"><div class="spec-label">Status</div><div class="spec-value">Active Development</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="case-section">
+    <div class="container">
+      <div class="case-section-head reveal">
+        <span class="block-label tech-label">Results / Lessons</span>
+        <div><h3>What's held up, what hasn't</h3></div>
+      </div>
+      <div class="results-grid reveal">
+        <div class="result-card">
+          <span class="tech-label accent">Worked</span>
+          <p>Doing rust repair and weight-saving teardown before any suspension work meant fewer surprises once the car was on coilovers.</p>
+        </div>
+        <div class="result-card">
+          <span class="tech-label accent">Learned</span>
+          <p>Mocking up ride height early made it obvious which wheel/tire combinations would actually clear before money was spent on them.</p>
+        </div>
+        <div class="result-card">
+          <span class="tech-label accent">Next</span>
+          <p>Corner-balancing, alignment, and wheel/tire finalization, followed by brake and interior work as the build continues.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <nav class="case-nav container">
+    <a href="index.html#work" class="link-sweep">← Back to Work</a>
+    <a href="FPV-Drones.html" class="link-sweep">Next: FPV Drone Development →</a>
+  </nav>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="index.html" class="brand"><span class="brand-mark"></span>DEVON MARLIN</a>
+        <p>Engineering, fabrication, and media — designed, built, and documented in one place.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Navigate</h5>
+        <ul>
+          <li><a href="index.html#work">Work</a></li>
+          <li><a href="About.html">About</a></li>
+          <li><a href="Cinematography.html">Media</a></li>
+          <li><a href="index.html#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Connect</h5>
+        <ul>
+          <li><a href="mailto:contact@devonmarlin.com">Email</a></li>
+          <li><a href="https://github.com/Devo-Marlin" target="_blank" rel="noopener">GitHub</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© <span data-year>2026</span> Devon Marlin</span>
+      <span class="status-line"><span class="dot"></span>PORTFOLIO // SYSTEM ONLINE</span>
+    </div>
+  </div>
+</footer>
+
+<script src="script.js"></script>
 </body>
 </html>

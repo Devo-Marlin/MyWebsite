@@ -1,67 +1,178 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Formula G Vlog - Devon Marlin Portfolio</title>
-  <link rel="stylesheet" type="text/css" href="styles.css" />
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Formula G | Devon Marlin</title>
+<meta name="description" content="Design, analysis, and testing for a student-built race car in collegiate competition." />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Formula G" />
+<meta property="og:image" content="Photos/Formula G.jpg" />
+<link rel="icon" type="image/svg+xml" href="Photos/web/favicon.svg" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <nav class="navbar">
-    <div class="nav-links">
-      <a href="index.html">Home</a>
-      <a href="Miata.html">Miata</a>
-      <a href="FPV-Drones.html">FPV Drones</a>
-      <a href="Beerlista.html">Beerlista</a>
-      <a href="Formula-G.html">Formula G</a>
-      <a href="Cinematography.html">Cinematography</a>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="nav-row">
+    <a href="index.html" class="brand"><span class="brand-mark"></span>DEVON MARLIN<small>// PORTFOLIO</small></a>
+    <nav class="nav-links desktop-only" aria-label="Primary">
+      <a href="index.html#work">Work</a>
+      <a href="About.html">About</a>
+      <a href="Cinematography.html">Media</a>
+      <a href="index.html#contact">Contact</a>
+    </nav>
+    <div class="nav-right">
+      <div class="nav-status"><span class="dot"></span>AVAILABLE FOR WORK</div>
+      <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobilePanel">
+        <span></span><span></span><span></span>
+      </button>
     </div>
+  </div>
+</header>
+
+<div class="mobile-panel" id="mobilePanel">
+  <nav class="nav-links" aria-label="Mobile">
+    <a href="index.html#work">Work</a>
+    <a href="About.html">About</a>
+    <a href="Cinematography.html">Media</a>
+    <a href="index.html#contact">Contact</a>
+  </nav>
+  <div class="mobile-panel-foot">
+    <span>DEVON MARLIN</span>
+    <span data-year>2026</span>
+  </div>
+</div>
+
+<main id="main">
+
+  <section class="case-hero container">
+    <div class="case-hero-top reveal">
+      <div class="case-title">
+        <span class="eyebrow">Motorsport</span>
+        <h1>Formula G</h1>
+        <p class="text-body-lg case-tagline">Design, analysis, and testing for a student-built race car in collegiate competition.</p>
+      </div>
+      <div class="case-meta-strip">
+        <div><div class="label">Type</div><div class="value">Collegiate Race Car</div></div>
+        <div><div class="label">Focus</div><div class="value">Design &amp; Testing</div></div>
+        <div><div class="label">Status</div><div class="value">In Progress</div></div>
+        <div><div class="label">Year</div><div class="value">2026</div></div>
+      </div>
+    </div>
+
+    <div class="frame case-hero-frame reveal">
+      <span class="corner tl"></span><span class="corner tr"></span>
+      <span class="corner bl"></span><span class="corner br"></span>
+      <img src="Photos/Formula G.jpg" alt="Formula G collegiate race car project" />
+      <span class="frame-tag">MOTORSPORT // FORMULA G</span>
+    </div>
+  </section>
+
+  <section class="case-section">
+    <div class="container">
+      <div class="case-section-head reveal">
+        <span class="block-label tech-label">Overview</span>
+        <div><h3>What the project involves</h3></div>
+      </div>
+      <div class="case-body reveal">
+        <div></div>
+        <div class="case-copy">
+          <p>
+            Formula G is a student-built race car developed for collegiate
+            competition. My involvement spans design, analysis, and testing —
+            working through the vehicle as an engineering system rather than a
+            single component, and validating decisions against real testing
+            data rather than assumptions alone.
+          </p>
+          <p>
+            <em>More detail on scope, team structure, and specific subsystems
+            to be added as this section develops.</em>
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="case-section">
+    <div class="container">
+      <div class="case-section-head reveal">
+        <span class="block-label tech-label">Technical Specifications</span>
+        <div><h3>Project scope</h3></div>
+      </div>
+      <div class="case-body reveal">
+        <div></div>
+        <div class="specs-table">
+          <div class="spec-row"><div class="spec-label">Discipline</div><div class="spec-value">Design, Analysis, Testing</div></div>
+          <div class="spec-row"><div class="spec-label">Context</div><div class="spec-value">Collegiate Competition</div></div>
+          <div class="spec-row"><div class="spec-label">Status</div><div class="spec-value">In Progress</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="case-section">
+    <div class="container">
+      <div class="case-section-head reveal">
+        <span class="block-label tech-label">Results / Lessons</span>
+        <div><h3>Notes so far</h3></div>
+      </div>
+      <div class="results-grid reveal">
+        <div class="result-card">
+          <span class="tech-label accent">Focus</span>
+          <p>Treating on-track and bench testing as the source of truth for design decisions, not just analysis alone.</p>
+        </div>
+        <div class="result-card">
+          <span class="tech-label accent">Next</span>
+          <p>Full write-up of subsystems, testing results, and competition outcomes to be added as the project progresses.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <nav class="case-nav container">
+    <a href="Beerlista.html" class="link-sweep">← Previous: Beerlista</a>
+    <a href="index.html#work" class="link-sweep">Back to Work →</a>
   </nav>
 
-  <header class="banner-container">
-    <img src="Photos/formula-g-banner.jpg" alt="Formula G Banner" class="banner-image" />
-    <div class="banner-text">Formula G Vlog</div>
-  </header>
+</main>
 
-  <main class="vlog-container">
-
-    <section class="vlog-entry">
-      <div class="vlog-text">
-        <h2>Day 1 – Project Setup & Flask Backend</h2>
-        <p>Initiated the project structure and set up the Flask backend server. Designed REST APIs to handle user authentication and data retrieval.</p>
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="index.html" class="brand"><span class="brand-mark"></span>DEVON MARLIN</a>
+        <p>Engineering, fabrication, and media — designed, built, and documented in one place.</p>
       </div>
-      <div class="vlog-photo">
-        <img src="Photos/formula-g-placeholder1.jpg" alt="Flask backend setup" />
-        <label>Flask backend development</label>
+      <div class="footer-col">
+        <h5>Navigate</h5>
+        <ul>
+          <li><a href="index.html#work">Work</a></li>
+          <li><a href="About.html">About</a></li>
+          <li><a href="Cinematography.html">Media</a></li>
+          <li><a href="index.html#contact">Contact</a></li>
+        </ul>
       </div>
-    </section>
-
-    <section class="vlog-entry reverse">
-      <div class="vlog-text">
-        <h2>Day 2 – Data Visualization Integration</h2>
-        <p>Implemented custom charts and visualizations using Plotly and Chart.js. Focused on real-time updates and responsive design for dashboards.</p>
+      <div class="footer-col">
+        <h5>Connect</h5>
+        <ul>
+          <li><a href="mailto:contact@devonmarlin.com">Email</a></li>
+          <li><a href="https://github.com/Devo-Marlin" target="_blank" rel="noopener">GitHub</a></li>
+        </ul>
       </div>
-      <div class="vlog-photo">
-        <img src="Photos/formula-g-placeholder2.jpg" alt="Data visualization charts" />
-        <label>Interactive data charts</label>
-      </div>
-    </section>
-
-    <section class="vlog-entry">
-      <div class="vlog-text">
-        <h2>Day 3 – API Optimization & Reporting</h2>
-        <p>Optimized API calls for faster performance and added exportable reports. Ensured cross-device compatibility and polished the user interface.</p>
-      </div>
-      <div class="vlog-photo">
-        <img src="Photos/Formula G.jpg" alt="API optimization" />
-        <label>API optimization and reporting</label>
-      </div>
-    </section>
-
-    <div class="back-button-container">
-      <a href="index.html" class="back-button">← Back to Home</a>
     </div>
+    <div class="footer-bottom">
+      <span>© <span data-year>2026</span> Devon Marlin</span>
+      <span class="status-line"><span class="dot"></span>PORTFOLIO // SYSTEM ONLINE</span>
+    </div>
+  </div>
+</footer>
 
-  </main>
+<script src="script.js"></script>
 </body>
 </html>

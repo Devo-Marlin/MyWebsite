@@ -1,67 +1,171 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Formula G Vlog - Devon Marlin Portfolio</title>
-  <link rel="stylesheet" type="text/css" href="styles.css" />
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Media — Devon Marlin</title>
+<meta name="description" content="Photography and film from Devon Marlin's builds — automotive, FPV, and behind-the-scenes shots from ongoing projects." />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Media — Devon Marlin" />
+<meta property="og:image" content="Photos/web/hero.jpg" />
+<link rel="icon" type="image/svg+xml" href="Photos/web/favicon.svg" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <nav class="navbar">
-    <div class="nav-links">
-      <a href="index.html">Home</a>
-      <a href="Miata.html">Miata</a>
-      <a href="FPV-Drones.html">FPV Drones</a>
-      <a href="Beerlista.html">Beerlista</a>
-      <a href="Formula-G.html">Formula G</a>
-      <a href="Cinematography.html">Cinematography</a>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="nav-row">
+    <a href="index.html" class="brand"><span class="brand-mark"></span>DEVON MARLIN<small>// PORTFOLIO</small></a>
+    <nav class="nav-links desktop-only" aria-label="Primary">
+      <a href="index.html#work">Work</a>
+      <a href="About.html">About</a>
+      <a href="Cinematography.html">Media</a>
+      <a href="index.html#contact">Contact</a>
+    </nav>
+    <div class="nav-right">
+      <div class="nav-status"><span class="dot"></span>AVAILABLE FOR WORK</div>
+      <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobilePanel">
+        <span></span><span></span><span></span>
+      </button>
     </div>
+  </div>
+</header>
+
+<div class="mobile-panel" id="mobilePanel">
+  <nav class="nav-links" aria-label="Mobile">
+    <a href="index.html#work">Work</a>
+    <a href="About.html">About</a>
+    <a href="Cinematography.html">Media</a>
+    <a href="index.html#contact">Contact</a>
   </nav>
+  <div class="mobile-panel-foot">
+    <span>DEVON MARLIN</span>
+    <span data-year>2026</span>
+  </div>
+</div>
 
-  <header class="banner-container">
-    <img src="Photos/formula-g-banner.jpg" alt="Formula G Banner" class="banner-image" />
-    <div class="banner-text">Cinematography Vlog</div>
-  </header>
+<main id="main">
 
-  <main class="vlog-container">
-
-    <section class="vlog-entry">
-      <div class="vlog-text">
-        <h2>Day 1 – Project Setup & Flask Backend</h2>
-        <p>Initiated the project structure and set up the Flask backend server. Designed REST APIs to handle user authentication and data retrieval.</p>
+  <section class="section" style="padding-top:9rem; padding-bottom: 2rem;">
+    <div class="container">
+      <div class="reveal">
+        <span class="eyebrow">Media</span>
+        <h1>Shot along<br />the way.</h1>
+        <p class="text-body-lg mt-lg" style="max-width:56ch;">
+          Photography and film from the builds on this site — automotive,
+          FPV, and behind-the-scenes shots. This gallery grows as each project
+          does.
+        </p>
       </div>
-      <div class="vlog-photo">
-        <img src="Photos/formula-g-placeholder1.jpg" alt="Flask backend setup" />
-        <label>Flask backend development</label>
-      </div>
-    </section>
-
-    <section class="vlog-entry reverse">
-      <div class="vlog-text">
-        <h2>Day 2 – Data Visualization Integration</h2>
-        <p>Implemented custom charts and visualizations using Plotly and Chart.js. Focused on real-time updates and responsive design for dashboards.</p>
-      </div>
-      <div class="vlog-photo">
-        <img src="Photos/formula-g-placeholder2.jpg" alt="Data visualization charts" />
-        <label>Interactive data charts</label>
-      </div>
-    </section>
-
-    <section class="vlog-entry">
-      <div class="vlog-text">
-        <h2>Day 3 – API Optimization & Reporting</h2>
-        <p>Optimized API calls for faster performance and added exportable reports. Ensured cross-device compatibility and polished the user interface.</p>
-      </div>
-      <div class="vlog-photo">
-        <img src="Photos/Formula G.jpg" alt="API optimization" />
-        <label>API optimization and reporting</label>
-      </div>
-    </section>
-
-    <div class="back-button-container">
-      <a href="index.html" class="back-button">← Back to Home</a>
     </div>
+  </section>
 
-  </main>
+  <section class="section" style="padding-top:1rem;">
+    <div class="container">
+
+      <div class="media-filter reveal">
+        <button data-filter="all" class="is-active">All</button>
+        <button data-filter="automotive">Automotive</button>
+        <button data-filter="fpv">FPV</button>
+        <button data-filter="portrait">Portrait</button>
+      </div>
+
+      <div class="media-grid reveal">
+
+        <div class="media-item wide" data-category="portrait">
+          <div class="frame">
+            <span class="corner tl"></span><span class="corner tr"></span>
+            <span class="corner bl"></span><span class="corner br"></span>
+            <img src="Photos/web/hero.jpg" alt="Environmental portrait" loading="lazy" />
+            <span class="frame-tag">PORTRAIT</span>
+          </div>
+          <div class="media-caption"><span>Portrait</span><span>01</span></div>
+        </div>
+
+        <div class="media-item" data-category="fpv">
+          <div class="frame">
+            <span class="corner tl"></span><span class="corner tr"></span>
+            <span class="corner bl"></span><span class="corner br"></span>
+            <img src="Photos/web/avata.jpg" alt="FPV freestyle drone" loading="lazy" />
+            <span class="frame-tag">FPV</span>
+          </div>
+          <div class="media-caption"><span>FPV</span><span>02</span></div>
+        </div>
+
+        <div class="media-item" data-category="automotive">
+          <div class="frame">
+            <span class="corner tl"></span><span class="corner tr"></span>
+            <span class="corner bl"></span><span class="corner br"></span>
+            <img src="Photos/Miata.jpg" alt="1991 Mazda MX-5 during build" loading="lazy" />
+            <span class="frame-tag">AUTOMOTIVE</span>
+          </div>
+          <div class="media-caption"><span>Automotive</span><span>03</span></div>
+        </div>
+
+        <div class="media-item" data-category="automotive">
+          <div class="frame">
+            <span class="corner tl"></span><span class="corner tr"></span>
+            <span class="corner bl"></span><span class="corner br"></span>
+            <img src="Photos/Formula G.jpg" alt="Formula G race car" loading="lazy" />
+            <span class="frame-tag">MOTORSPORT</span>
+          </div>
+          <div class="media-caption"><span>Automotive</span><span>04</span></div>
+        </div>
+
+        <div class="media-item wide" data-category="automotive">
+          <div class="frame">
+            <span class="corner tl"></span><span class="corner tr"></span>
+            <span class="corner bl"></span><span class="corner br"></span>
+            <img src="Photos/beerlista.jpg" alt="Beerlista mechanical launcher" loading="lazy" />
+            <span class="frame-tag">BUILD</span>
+          </div>
+          <div class="media-caption"><span>Build</span><span>05</span></div>
+        </div>
+
+      </div>
+
+      <p class="tech-label mt-lg reveal" style="max-width:none;">More shots — landscape, adventure, and cinematic clips — added as they're shot.</p>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="index.html" class="brand"><span class="brand-mark"></span>DEVON MARLIN</a>
+        <p>Engineering, fabrication, and media — designed, built, and documented in one place.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Navigate</h5>
+        <ul>
+          <li><a href="index.html#work">Work</a></li>
+          <li><a href="About.html">About</a></li>
+          <li><a href="Cinematography.html">Media</a></li>
+          <li><a href="index.html#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Connect</h5>
+        <ul>
+          <li><a href="mailto:contact@devonmarlin.com">Email</a></li>
+          <li><a href="https://github.com/Devo-Marlin" target="_blank" rel="noopener">GitHub</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© <span data-year>2026</span> Devon Marlin</span>
+      <span class="status-line"><span class="dot"></span>PORTFOLIO // SYSTEM ONLINE</span>
+    </div>
+  </div>
+</footer>
+
+<script src="script.js"></script>
 </body>
 </html>
