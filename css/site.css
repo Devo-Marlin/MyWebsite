@@ -349,3 +349,29 @@ select.field { appearance: auto; }
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
 }
+
+/* Mobile hardening */
+html { -webkit-tap-highlight-color: transparent; }
+button, a, label, select, input[type="range"] { touch-action: manipulation; }
+#gl, .label, .hud, .hero { -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
+.field { font-size: 16px; }
+.name { font-size: min(clamp(4.2rem, 19vw, 17rem), 36svh); }
+.nogl { display: none; margin-top: 28px; color: var(--muted); max-width: 32ch; }
+.no-webgl .nogl { display: block; }
+.no-webgl .ring-wrap { display: none; }
+
+@media (pointer: coarse) {
+  .lock { width: 44px; height: 44px; display: inline-grid; place-items: center; padding: 0; }
+  .pill { min-height: 44px; }
+  .ed-btn { width: 44px; height: 44px; }
+  .explode input { height: 32px; }
+}
+
+@media (max-height: 520px) and (orientation: landscape) {
+  .sheet-window { height: 38vh; height: 38svh; }
+  .explode { bottom: 12px; }
+  .hud-title { bottom: 14px; }
+  .hud .pill { bottom: 10px; }
+  .hero { padding-top: 64px; }
+  .cue { display: none; }
+}

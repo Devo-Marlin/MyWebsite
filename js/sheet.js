@@ -1,6 +1,6 @@
-import { configured, photoUrl } from "./content.js";
-import { isAdmin, onAdminChange, getClient, prepareImage } from "./ui.js";
-import { renderChart } from "./charts.js";
+import { configured, photoUrl } from "./content.js?v=202611090e";
+import { isAdmin, onAdminChange, getClient, prepareImage } from "./ui.js?v=202611090e";
+import { renderChart } from "./charts.js?v=202611090e";
 
 const $ = (id) => document.getElementById(id);
 const cfg = window.SITE_CONFIG || {};

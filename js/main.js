@@ -3,10 +3,23 @@ import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
 import { toCreasedNormals } from "three/addons/utils/BufferGeometryUtils.js";
-import { PROJECTS, CONTACT } from "./data.js";
-import { loadContent } from "./content.js";
-import { initTheme, initDrawer, initLightbox, initAdmin, isAdmin, onAdminChange } from "./ui.js";
-import { initSheet, openSheet, closeSheet, loadPartInfo } from "./sheet.js";
+import { PROJECTS, CONTACT } from "./data.js?v=202611090e";
+import { loadContent } from "./content.js?v=202611090e";
+import { initTheme, initDrawer, initLightbox, initAdmin, isAdmin, onAdminChange } from "./ui.js?v=202611090e";
+import { initSheet, openSheet, closeSheet, loadPartInfo } from "./sheet.js?v=202611090e";
+
+(function () {
+  try {
+    const c = document.createElement("canvas");
+    if (c.getContext("webgl2") || c.getContext("webgl")) return;
+  } catch (e) { /* fall through */ }
+  document.documentElement.classList.add("no-webgl");
+  const note = document.querySelector(".nogl");
+  if (note) note.hidden = false;
+  const ringSection = document.getElementById("ring");
+  if (ringSection) ringSection.hidden = true;
+})();
+if (document.documentElement.classList.contains("no-webgl")) throw new Error("WebGL is not available on this device");
 
 const $ = (id) => document.getElementById(id);
 const TAU = Math.PI * 2;
@@ -21,6 +34,7 @@ const GHOST_SCALE = 1.75;
 const ORANGE = 0xe5751f;
 let exScale = 1;
 let active = null;
+let state = "ring"; // ring (browsing the stack) | zoom | focused | leaving | part-in | part | part-out
 let exploded = 0;
 const slug = (t) => t.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
 
@@ -30,7 +44,10 @@ const wrap = $("ring");
 
 /* ---------- Renderer / scene ---------- */
 const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
-renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+renderer.setPixelRatio(Math.min(devicePixelRatio, matchMedia("(pointer: coarse)").matches ? 1.75 : 2));
+// Phones drop the WebGL context when the tab is backgrounded; reload to get a clean, correctly lit scene back.
+canvas.addEventListener("webglcontextlost", (e) => e.preventDefault());
+canvas.addEventListener("webglcontextrestored", () => location.reload());
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
 
 const scene = new THREE.Scene();
@@ -61,7 +78,7 @@ initLightbox();
 initAdmin();
 
 /* ---------- Items ---------- */
-const hitSphere = new THREE.SphereGeometry(FIT * 0.5, 14, 10);
+const hitSphere = new THREE.SphereGeometry(FIT * 0.6, 14, 10);
 const hitMat = new THREE.MeshBasicMaterial({ visible: false });
 
 function makeGhost() {
@@ -134,7 +151,7 @@ function setupModel(it, gltf) {
   const box = new THREE.Box3().setFromObject(root);
   const size = box.getSize(new THREE.Vector3());
   const center = box.getCenter(new THREE.Vector3());
-  const s = FIT / Math.max(size.x, size.z);
+  let s = FIT / Math.max(size.x, size.z); // refined below once the part geometry is known
   root.position.sub(center);
   const pivot = new THREE.Group();
   pivot.scale.setScalar(s);
@@ -191,6 +208,22 @@ function setupModel(it, gltf) {
     });
     pt.key = slug(pt.label);
   });
+  // Rotation-proof sizing: measure the widest the model gets from any side and fit that to FIT,
+  // so a slowly spinning model never swings wider than its slot (or the screen).
+  let widest = 0;
+  for (let a = 0; a < Math.PI; a += Math.PI / 36) {
+    const c = Math.cos(a), sn = Math.sin(a);
+    let lo = Infinity, hi = -Infinity;
+    for (const pt of parts) {
+      for (const k of pt.corners) {
+        const x = (pt.base.x + k.x) * c + (pt.base.z + k.z) * sn;
+        lo = Math.min(lo, x);
+        hi = Math.max(hi, x);
+      }
+    }
+    widest = Math.max(widest, hi - lo);
+  }
+  if (widest > 0) { s = FIT / widest; pivot.scale.setScalar(s); }
   it.s = s;
   computeFit(it);
 
@@ -247,11 +280,11 @@ function layout() {
   const m = metrics;
   const portrait = aspect < 0.9;
   // On phones the models fill most of the screen width, sit closer together, and the first one starts high on the screen.
-  m.dist = Math.max(6.8, (FIT * (portrait ? 0.68 : 0.85)) / (v * aspect));
+  m.dist = Math.max(6.8, (FIT * (portrait ? 0.56 : 0.74)) / (v * aspect));
   m.halfH = m.dist * v;
   const halfW = m.halfH * aspect;
   m.spacing = portrait ? Math.max(FIT * 0.95, m.halfH * 0.8) : Math.max(FIT * 0.66, m.halfH * 1.3);
-  m.xoff = halfW * (portrait ? 0.13 : 0.34);
+  m.xoff = halfW * (portrait ? 0.1 : 0.3);
   m.bias = portrait ? m.halfH * 0.72 : 0;
   items.forEach((it, i) => {
     it.home.set((i % 2 === 0 ? -1 : 1) * m.xoff, -i * m.spacing, 0);
@@ -284,6 +317,13 @@ function resize() {
   camera.updateProjectionMatrix();
   layout();
   if (active) { computeFit(active); setExplode(exploded); }
+  if (state === "focused" && active) {
+    const f = focusPose(active);
+    const dir = camera.position.clone().sub(controls.target).normalize();
+    const dist = f.pos.distanceTo(f.target);
+    camera.position.copy(controls.target).addScaledVector(dir, dist);
+    controls.maxDistance = Math.max(11, dist * 1.3);
+  }
 }
 new ResizeObserver(resize).observe(stage);
 resize();
@@ -297,7 +337,6 @@ function tween(dur, fn, done) {
 }
 
 /* ---------- State ---------- */
-let state = "ring"; // ring (browsing the stack) | zoom | focused | leaving
 let camYTarget = 0;
 let explodeTween = null;
 let visible = true;
@@ -595,6 +634,7 @@ canvas.addEventListener("pointermove", (ev) => {
 canvas.addEventListener("pointerleave", () => { hovered = null; setHoveredMesh(null); setTip(null); stage.classList.remove("can-click"); });
 
 let down = null;
+canvas.addEventListener("pointercancel", () => { down = null; });
 canvas.addEventListener("pointerdown", (ev) => (down = { x: ev.clientX, y: ev.clientY }));
 canvas.addEventListener("pointerup", (ev) => {
   if (!down) return;
@@ -639,7 +679,7 @@ function updateLabels() {
     const sy = (-projectV.y * 0.5 + 0.5) * h;
     const sx = (projectV.x * 0.5 + 0.5) * w;
     const modelOnLeft = i % 2 === 0;
-    const fade = state === "ring" ? clamp(1.2 - Math.abs(sy - h / 2) / (h * 0.55), 0, 1) : 0;
+    const fade = state === "ring" ? clamp(1.2 - Math.abs(sy - h / 2) / (h * (portrait ? 0.85 : 0.55)), 0, 1) : 0;
     el.style.opacity = fade.toFixed(3);
     el.classList.toggle("below", portrait);
     el.classList.toggle("right", !portrait && !modelOnLeft);
@@ -710,7 +750,7 @@ loadContent(projects).then((merged) => {
 /* ---------- Loop ---------- */
 let last = performance.now();
 let t = 0;
-renderer.setAnimationLoop((now) => {
+const tick = (now) => {
   const dt = Math.min((now - last) / 1000, 0.05);
   last = now;
   t += dt;
@@ -763,8 +803,9 @@ renderer.setAnimationLoop((now) => {
   updateLabels();
 
   renderer.render(scene, camera);
-});
+};
+renderer.setAnimationLoop(tick);
 
 if (location.hostname === "localhost" || location.hostname === "127.0.0.1") {
-  window.__site = { items, focus, leave, setExplode, enterPart, leavePart, lockScroll, unlockScroll, get state() { return state; }, camera, controls };
+  window.__site = { renderer, tick, items, focus, leave, setExplode, enterPart, leavePart, lockScroll, unlockScroll, get state() { return state; }, camera, controls };
 }
