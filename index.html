@@ -12,7 +12,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="css/site.css?v=202611090h" />
+<link rel="stylesheet" href="css/site.css?v=202611090i" />
 <script>
   try { var t = localStorage.getItem("theme"); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
 </script>
@@ -24,7 +24,7 @@
   }
 }
 </script>
-<script src="config.js?v=202611090h"></script>
+<script src="config.js?v=202611090i"></script>
 </head>
 <body>
 
@@ -141,7 +141,7 @@
   <form method="dialog" id="login-form">
     <div class="login-title">Admin</div>
     <p class="login-note" id="login-note" hidden></p>
-    <label>Email<input class="field" id="login-email" type="email" autocomplete="username" required /></label>
+    <label>Username<input class="field" id="login-user" type="text" autocomplete="username" autocapitalize="none" autocorrect="off" spellcheck="false" required /></label>
     <label>Password<input class="field" id="login-pass" type="password" autocomplete="current-password" required /></label>
     <p class="login-err" id="login-err" role="alert"></p>
     <div class="login-row">
@@ -151,6 +151,6 @@
   </form>
 </dialog>
 
-<script type="module" src="js/main.js?v=202611090h"></script>
+<script type="module" src="js/main.js?v=202611090i"></script>
 </body>
 </html>

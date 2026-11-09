@@ -1,7 +1,8 @@
 -- Run once in Supabase: SQL Editor -> New query -> paste -> Run.
 --
 -- Before using the site:
---   1. Authentication -> Users -> Add user: create your own email + password.
+--   1. Authentication -> Users -> Add user: email ziggyzorb@devonmarlin.com (the site's login form turns the
+--      username "ZiggyZorb" into this address), your password, and tick "Auto Confirm User".
 --   2. Authentication -> Sign In / Providers -> turn OFF "Allow new users to sign up".
 -- With sign-ups off, you are the only authenticated user, so "to authenticated" below means "only you".
 -- Everyone else (the anon key in config.js) can read but never write.

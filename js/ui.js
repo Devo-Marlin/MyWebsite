@@ -1,4 +1,4 @@
-import { configured, photoUrl } from "./content.js?v=202611090h";
+import { configured, photoUrl } from "./content.js?v=202611090i";
 
 const $ = (id) => document.getElementById(id);
 const cfg = window.SITE_CONFIG || {};
@@ -60,7 +60,7 @@ function initLogin() {
     note.hidden = configured;
     note.textContent = configured ? "" : "Admin is not set up yet. Add your Supabase keys to config.js.";
     dlg.showModal();
-    $("login-email").focus();
+    $("login-user").focus();
   };
   $("lock").addEventListener("click", () => (admin ? null : open()));
   $("login-cancel").addEventListener("click", () => dlg.close());
@@ -72,10 +72,11 @@ function initLogin() {
     err.textContent = "";
     try {
       const c = await client();
-      const { error } = await c.auth.signInWithPassword({
-        email: $("login-email").value.trim(),
-        password: $("login-pass").value,
-      });
+      // Supabase signs in with an email. A plain username maps to <username>@<adminEmailDomain>, so the
+      // admin user in Supabase is created with that address and the real password lives only there.
+      const raw = $("login-user").value.trim();
+      const email = raw.includes("@") ? raw : `${raw.toLowerCase()}@${cfg.adminEmailDomain || "devonmarlin.com"}`;
+      const { error } = await c.auth.signInWithPassword({ email, password: $("login-pass").value });
       if (error) { err.textContent = error.message; return; }
       $("login-pass").value = "";
       dlg.close();
