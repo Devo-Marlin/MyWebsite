@@ -155,6 +155,26 @@ function setupModel(it, gltf) {
     pt.dir.y = (CATEGORY_LIFT[pt.cat] ?? 0.2) * extent * 0.2;
   });
 
+  // Models without the drone's hand-tuned categories explode by group: each sub-assembly moves away from the
+  // overall centre, and its parts spread out around the sub-assembly's own centre.
+  if (!parts.some((pt) => pt.cat in CATEGORY_LIFT)) {
+    const centre = new THREE.Vector3();
+    parts.forEach((pt) => centre.add(pt.base));
+    centre.divideScalar(parts.length || 1);
+    const groups = new Map();
+    parts.forEach((pt) => {
+      const g = groups.get(pt.cat) || { sum: new THREE.Vector3(), n: 0 };
+      g.sum.add(pt.base);
+      g.n++;
+      groups.set(pt.cat, g);
+    });
+    parts.forEach((pt) => {
+      const g = groups.get(pt.cat);
+      const gc = g.sum.clone().divideScalar(g.n);
+      pt.dir.copy(gc).sub(centre).multiplyScalar(0.9).addScaledVector(pt.base.clone().sub(gc), 0.55);
+    });
+  }
+
   parts.forEach((pt) => {
     let rad = 0;
     pt.node.traverse((o) => {
