@@ -78,6 +78,29 @@
   </button>
 </footer>
 
+<section class="sheet" id="sheet" aria-hidden="true" aria-label="Part details">
+  <div class="sheet-scroll" id="sheet-scroll">
+    <div class="sheet-window" aria-hidden="true"><span class="sheet-cue">Scroll</span></div>
+    <article class="sheet-body">
+      <header class="sheet-head">
+        <span class="sheet-kicker" id="sheet-kicker"></span>
+        <h2 id="sheet-title"></h2>
+        <div class="chips" id="sheet-chips"></div>
+      </header>
+      <div id="sheet-cad"></div>
+      <div id="sheet-blocks"></div>
+      <div class="sheet-tools" id="sheet-tools" hidden>
+        <div class="sheet-add" id="sheet-add"></div>
+        <div class="sheet-save">
+          <button class="pill solid" id="sheet-save" type="button">Save page</button>
+          <span class="status" id="sheet-status" role="status"></span>
+        </div>
+      </div>
+    </article>
+  </div>
+  <button class="pill sheet-back" id="sheet-back" type="button">&larr; Assembly</button>
+</section>
+
 <div class="tip" id="tip" role="tooltip" hidden></div>
 
 <aside class="drawer" id="drawer" aria-hidden="true" aria-label="Project details">

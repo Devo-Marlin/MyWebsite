@@ -1,0 +1,264 @@
+{
+ "parts": {
+  "arm-socket-40-mm": {
+   "key": "arm-socket-40-mm",
+   "label": "Arm Socket 40 mm",
+   "category": "socket",
+   "count": 4,
+   "extent_mm": [
+    106.3,
+    106.3,
+    36.1
+   ],
+   "volume_cm3": 67.63,
+   "area_cm2": 195.5
+  },
+  "arm-socket-50-mm": {
+   "key": "arm-socket-50-mm",
+   "label": "Arm Socket 50 mm",
+   "category": "socket",
+   "count": 2,
+   "extent_mm": [
+    106.4,
+    106.3,
+    36.1
+   ],
+   "volume_cm3": 61.63,
+   "area_cm2": 201.3
+  },
+  "corner-motor-arm": {
+   "key": "corner-motor-arm",
+   "label": "Corner Motor Arm",
+   "category": "arm",
+   "count": 4,
+   "extent_mm": [
+    780.0,
+    39.9,
+    39.9
+   ],
+   "volume_cm3": 185.29,
+   "area_cm2": 1864.7
+  },
+  "cross-tube": {
+   "key": "cross-tube",
+   "label": "Cross Tube",
+   "category": "tube",
+   "count": 2,
+   "extent_mm": [
+    756.0,
+    50.0,
+    50.0
+   ],
+   "volume_cm3": 226.85,
+   "area_cm2": 2283.2
+  },
+  "folding-joint-40-mm": {
+   "key": "folding-joint-40-mm",
+   "label": "Folding Joint 40 mm",
+   "category": "joint",
+   "count": 4,
+   "extent_mm": [
+    160.5,
+    61.4,
+    61.4
+   ],
+   "volume_cm3": null,
+   "area_cm2": 788.3
+  },
+  "folding-joint-50-mm": {
+   "key": "folding-joint-50-mm",
+   "label": "Folding Joint 50 mm",
+   "category": "joint",
+   "count": 2,
+   "extent_mm": [
+    237.3,
+    129.9,
+    76.8
+   ],
+   "volume_cm3": null,
+   "area_cm2": 1252.8
+  },
+  "gusset": {
+   "key": "gusset",
+   "label": "Gusset",
+   "category": "gusset",
+   "count": 8,
+   "extent_mm": [
+    212.1,
+    162.6,
+    3.2
+   ],
+   "volume_cm3": 57.5,
+   "area_cm2": 380.6
+  },
+  "insert-40-mm": {
+   "key": "insert-40-mm",
+   "label": "Insert 40 mm",
+   "category": "insert",
+   "count": 4,
+   "extent_mm": [
+    76.5,
+    74.4,
+    74.1
+   ],
+   "volume_cm3": 315.13,
+   "area_cm2": 464.9
+  },
+  "insert-50-mm": {
+   "key": "insert-50-mm",
+   "label": "Insert 50 mm",
+   "category": "insert",
+   "count": 2,
+   "extent_mm": [
+    76.7,
+    74.6,
+    74.1
+   ],
+   "volume_cm3": 261.58,
+   "area_cm2": 476.5
+  },
+  "long-carbon-fiber-beam": {
+   "key": "long-carbon-fiber-beam",
+   "label": "Long Carbon Fiber Beam",
+   "category": "beam",
+   "count": 2,
+   "extent_mm": [
+    1200.0,
+    80.0,
+    80.0
+   ],
+   "volume_cm3": 1019.88,
+   "area_cm2": 6840.4
+  },
+  "middle-motor-arm": {
+   "key": "middle-motor-arm",
+   "label": "Middle Motor Arm",
+   "category": "arm",
+   "count": 2,
+   "extent_mm": [
+    580.0,
+    50.0,
+    50.0
+   ],
+   "volume_cm3": 174.04,
+   "area_cm2": 1753.0
+  },
+  "rw300": {
+   "key": "rw300",
+   "label": "RW300",
+   "category": "core",
+   "count": 1,
+   "extent_mm": [
+    330.5,
+    299.9,
+    267.8
+   ],
+   "volume_cm3": null,
+   "area_cm2": 3583.9
+  },
+  "short-carbon-fiber-beam": {
+   "key": "short-carbon-fiber-beam",
+   "label": "Short Carbon Fiber Beam",
+   "category": "beam",
+   "count": 2,
+   "extent_mm": [
+    609.6,
+    80.0,
+    80.0
+   ],
+   "volume_cm3": 477.63,
+   "area_cm2": 3219.7
+  },
+  "short-through-tube": {
+   "key": "short-through-tube",
+   "label": "Short Through Tube",
+   "category": "tube",
+   "count": 2,
+   "extent_mm": [
+    270.0,
+    50.0,
+    50.0
+   ],
+   "volume_cm3": 81.02,
+   "area_cm2": 819.3
+  },
+  "square-motor-mount-body": {
+   "key": "square-motor-mount-body",
+   "label": "Square Motor Mount Body",
+   "category": "mount",
+   "count": 2,
+   "extent_mm": [
+    141.3,
+    126.5,
+    20.1
+   ],
+   "volume_cm3": null,
+   "area_cm2": 259.4
+  },
+  "square-motor-mount-cap": {
+   "key": "square-motor-mount-cap",
+   "label": "Square Motor Mount Cap",
+   "category": "cap",
+   "count": 2,
+   "extent_mm": [
+    126.5,
+    47.6,
+    20.2
+   ],
+   "volume_cm3": 36.18,
+   "area_cm2": 124.5
+  },
+  "t-joint-40-50-mm": {
+   "key": "t-joint-40-50-mm",
+   "label": "T Joint 40-50 mm",
+   "category": "tjoint",
+   "count": 4,
+   "extent_mm": [
+    114.4,
+    78.4,
+    54.8
+   ],
+   "volume_cm3": 44.6,
+   "area_cm2": 289.5
+  },
+  "t-sleeve": {
+   "key": "t-sleeve",
+   "label": "T Sleeve",
+   "category": "sleeve",
+   "count": 2,
+   "extent_mm": [
+    150.2,
+    128.4,
+    56.6
+   ],
+   "volume_cm3": 284.87,
+   "area_cm2": 692.7
+  },
+  "through-tube": {
+   "key": "through-tube",
+   "label": "Through Tube",
+   "category": "tube",
+   "count": 2,
+   "extent_mm": [
+    800.0,
+    40.0,
+    40.0
+   ],
+   "volume_cm3": 190.04,
+   "area_cm2": 1912.4
+  },
+  "t-motor-a14": {
+   "key": "t-motor-a14",
+   "label": "T-Motor A14",
+   "category": "motor",
+   "count": 6,
+   "extent_mm": [
+    1405.2,
+    507.0,
+    180.0
+   ],
+   "volume_cm3": null,
+   "area_cm2": 8953.8
+  }
+ }
+}

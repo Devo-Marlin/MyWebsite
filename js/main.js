@@ -6,6 +6,7 @@ import { toCreasedNormals } from "three/addons/utils/BufferGeometryUtils.js";
 import { PROJECTS, CONTACT } from "./data.js";
 import { loadContent } from "./content.js";
 import { initTheme, initDrawer, initLightbox, initAdmin, isAdmin, onAdminChange } from "./ui.js";
+import { initSheet, openSheet, closeSheet, loadPartInfo } from "./sheet.js";
 
 const $ = (id) => document.getElementById(id);
 const TAU = Math.PI * 2;
@@ -18,6 +19,10 @@ const css = (name) => getComputedStyle(document.documentElement).getPropertyValu
 const FIT = 3.8;
 const GHOST_SCALE = 1.75;
 const ORANGE = 0xe5751f;
+let exScale = 1;
+let active = null;
+let exploded = 0;
+const slug = (t) => t.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
 
 const stage = $("stage");
 const canvas = $("gl");
@@ -150,8 +155,6 @@ function setupModel(it, gltf) {
     pt.dir.y = (CATEGORY_LIFT[pt.cat] ?? 0.2) * extent * 0.2;
   });
 
-  // Camera framing: radius and height of the fully exploded assembly, in ring units.
-  let fitR = 0, fitY = 0;
   parts.forEach((pt) => {
     let rad = 0;
     pt.node.traverse((o) => {
@@ -160,12 +163,11 @@ function setupModel(it, gltf) {
         rad = Math.max(rad, o.geometry.boundingSphere.radius);
       }
     });
-    const e = pt.base.clone().add(pt.dir);
-    fitR = Math.max(fitR, Math.hypot(e.x, e.z) + rad);
-    fitY = Math.max(fitY, Math.abs(e.y) + rad * 0.3);
+    pt.rad = rad;
+    pt.key = slug(pt.label);
   });
-  it.fitR = fitR * s * 1.06;
-  it.fitY = fitY * s + 0.35;
+  it.s = s;
+  computeFit(it);
 
   it.spin.remove(it.ghost);
   it.ghost.traverse((o) => { o.geometry?.dispose(); });
@@ -175,6 +177,18 @@ function setupModel(it, gltf) {
   it.parts = parts;
   it.meshes = meshes;
   it.spinSpeed = 0.16;
+}
+
+// Camera framing: radius and height of the exploded assembly, in scene units.
+function computeFit(it) {
+  let fitR = 0, fitY = 0;
+  for (const pt of it.parts) {
+    const e = pt.base.clone().addScaledVector(pt.dir, exScale);
+    fitR = Math.max(fitR, Math.hypot(e.x, e.z) + pt.rad);
+    fitY = Math.max(fitY, Math.abs(e.y) + pt.rad * 0.3);
+  }
+  it.fitR = fitR * it.s * 1.06;
+  it.fitY = fitY * it.s + 0.35;
 }
 
 const loader = new GLTFLoader();
@@ -187,6 +201,7 @@ projects.forEach((p, i) => {
     p.model,
     (gltf) => {
       setupModel(items[i], gltf);
+      fetch(p.model.replace(/\.glb$/, "-parts.json")).then((r) => r.json()).then((j) => (items[i].cad = j.parts)).catch(() => {});
       if (--loading === 0) progress.style.opacity = "0";
     },
     (ev) => { if (ev.total) progress.style.width = Math.round((ev.loaded / ev.total) * 100) + "%"; },
@@ -230,9 +245,11 @@ function resize() {
   if (!w || !h) return;
   renderer.setSize(w, h, false);
   aspect = w / h;
+  exScale = clamp(aspect, 0.55, 1);
   camera.aspect = aspect;
   camera.updateProjectionMatrix();
   layout();
+  if (active) { computeFit(active); setExplode(exploded); }
 }
 new ResizeObserver(resize).observe(stage);
 resize();
@@ -247,9 +264,7 @@ function tween(dur, fn, done) {
 
 /* ---------- State ---------- */
 let state = "ring"; // ring (browsing the stack) | zoom | focused | leaving
-let active = null;
 let camYTarget = 0;
-let exploded = 0;
 let explodeTween = null;
 let visible = true;
 const pointerN = new THREE.Vector2();
@@ -260,7 +275,7 @@ new IntersectionObserver(([e]) => (visible = e.isIntersecting), { rootMargin: "1
 
 function setExplode(e) {
   exploded = e;
-  if (active) for (const pt of active.parts) pt.node.position.copy(pt.base).addScaledVector(pt.dir, e);
+  if (active) for (const pt of active.parts) pt.node.position.copy(pt.base).addScaledVector(pt.dir, e * exScale);
   $("explode").value = String(e);
 }
 
@@ -288,7 +303,7 @@ function focus(it) {
   active = it;
   setTip(null);
   visible = true;
-  document.documentElement.classList.add("lock");
+  document.documentElement.classList.add("no-scroll");
   stage.classList.add("is-focused");
   stage.classList.remove("can-click");
   $("hud").hidden = false;
@@ -297,6 +312,7 @@ function focus(it) {
 
   const c0 = camera.position.clone();
   const t0 = camTarget.clone();
+  computeFit(it);
   const f = focusPose(it);
   it.mode = "present";
   it.spinTarget = Math.round(it.spin.rotation.y / TAU) * TAU + 0.5;
@@ -347,9 +363,111 @@ function leave() {
     state = "ring";
     active = null;
     stage.classList.remove("is-focused");
-    document.documentElement.classList.remove("lock");
+    document.documentElement.classList.remove("no-scroll");
   });
 }
+
+/* ---------- Part focus (click a part, scroll for its page) ---------- */
+let partCtx = null;
+let partTween = null;
+let dimK = 0;
+
+function orbitPose(o, extra) {
+  const az = o.az + extra;
+  return {
+    pos: new THREE.Vector3(o.center.x + Math.sin(az) * Math.cos(o.el) * o.d, o.center.y + Math.sin(o.el) * o.d, o.center.z + Math.cos(az) * Math.cos(o.el) * o.d),
+    target: new THREE.Vector3(o.center.x, o.center.y - o.shift, o.center.z),
+  };
+}
+
+function setDim(k) {
+  dimK = k;
+  if (!partCtx) return;
+  for (const m of partCtx.it.meshes) {
+    const mat = m.material;
+    if (partCtx.same.has(m)) {
+      mat.transparent = false;
+      mat.opacity = 1;
+      mat.depthWrite = true;
+      mat.emissive.setHex(k > 0.001 ? ORANGE : 0x000000);
+      mat.emissiveIntensity = 0.16 * k;
+    } else {
+      mat.transparent = k > 0.001;
+      mat.opacity = lerp(1, 0.07, k);
+      mat.depthWrite = k < 0.6;
+      mat.emissive.setHex(0x000000);
+    }
+  }
+}
+
+function enterPart(it, mesh) {
+  if (state !== "focused") return;
+  const node = mesh.userData.node;
+  if (!node) return;
+  const [cat, rawLabel] = node.name.split("|");
+  const label = rawLabel.replace(/_/g, " ");
+  const key = slug(label);
+  state = "part-in";
+  controls.enabled = false;
+  setHoveredMesh(null);
+  setTip(null);
+  stage.classList.remove("can-click");
+  $("hud").hidden = true;
+
+  const same = new Set(it.meshes.filter((m) => m.userData.node && m.userData.node.name.split("|")[1] === rawLabel));
+  mesh.updateWorldMatrix(true, false);
+  if (!mesh.geometry.boundingSphere) mesh.geometry.computeBoundingSphere();
+  const bs = mesh.geometry.boundingSphere;
+  const center = bs.center.clone().applyMatrix4(mesh.matrixWorld);
+  const sc = new THREE.Vector3();
+  mesh.getWorldScale(sc);
+  const radius = bs.radius * Math.max(sc.x, sc.y, sc.z);
+  const v = Math.tan(THREE.MathUtils.degToRad(camera.fov / 2));
+  const d = Math.max(radius / (0.3 * v), radius / (0.38 * v * aspect), 0.3);
+  const orbit = {
+    center, d, el: 0.5, spin: 0,
+    az: Math.atan2(camera.position.x - center.x, camera.position.z - center.z),
+    shift: d * v * 0.46,
+  };
+  const c0 = camera.position.clone();
+  const t0 = controls.target.clone();
+  partCtx = { it, mesh, key, label, same, orbit, c0, t0 };
+  const pose = orbitPose(orbit, 0);
+  camTarget.copy(t0);
+  openSheet({ project: it.p, key, label, category: cat, cad: it.cad && it.cad[key] });
+  partTween = tween(1.3, (k0) => {
+    const k = ease(k0);
+    camera.position.lerpVectors(c0, pose.pos, k);
+    camTarget.lerpVectors(t0, pose.target, k);
+    setDim(k);
+  }, () => { state = "part"; partTween = null; });
+}
+
+function leavePart() {
+  if (state !== "part" && state !== "part-in") return;
+  const pc = partCtx;
+  if (partTween) partTween.dead = true;
+  state = "part-out";
+  closeSheet();
+  const c0 = camera.position.clone();
+  const t0 = camTarget.clone();
+  const k0 = dimK;
+  tween(1.1, (k) => {
+    const e = ease(k);
+    camera.position.lerpVectors(c0, pc.c0, e);
+    camTarget.lerpVectors(t0, pc.t0, e);
+    setDim(lerp(k0, 0, e));
+  }, () => {
+    setDim(0);
+    state = "focused";
+    controls.target.copy(pc.t0);
+    controls.enabled = true;
+    controls.update();
+    partCtx = null;
+    $("hud").hidden = false;
+  });
+}
+initSheet({ onBack: leavePart });
 
 $("close").addEventListener("click", leave);
 $("explode").addEventListener("input", (e) => {
@@ -359,6 +477,7 @@ $("explode").addEventListener("input", (e) => {
 $("open-drawer").addEventListener("click", () => active && drawer.open(active.p));
 addEventListener("keydown", (e) => {
   if (e.key !== "Escape") return;
+  if (state === "part" || state === "part-in") { leavePart(); return; }
   if (drawer.isOpen()) drawer.close();
   else leave();
 });
@@ -414,7 +533,8 @@ canvas.addEventListener("pointermove", (ev) => {
     const h = raycaster.intersectObjects(active.meshes, false)[0];
     const label = h && h.object.userData.node ? h.object.userData.node.name.split("|")[1].replace(/_/g, " ") : null;
     setHoveredMesh(label ? h.object : null);
-    setTip(label ? esc(label) : null, ev);
+    stage.classList.toggle("can-click", Boolean(label));
+    setTip(label ? esc(label) + "<small>Details</small>" : null, ev);
   }
 });
 canvas.addEventListener("pointerleave", () => { hovered = null; setHoveredMesh(null); setTip(null); stage.classList.remove("can-click"); });
@@ -425,7 +545,14 @@ canvas.addEventListener("pointerup", (ev) => {
   if (!down) return;
   const moved = Math.hypot(ev.clientX - down.x, ev.clientY - down.y);
   down = null;
-  if (moved > 8 || state !== "ring") return;
+  if (moved > 8) return;
+  if (state === "focused" && active && active.meshes.length) {
+    raycaster.setFromCamera(ndc(ev), camera);
+    const hit = raycaster.intersectObjects(active.meshes, false)[0];
+    if (hit && hit.object.userData.node) enterPart(active, hit.object);
+    return;
+  }
+  if (state !== "ring") return;
   const it = pickItem(ev);
   if (it) focus(it);
 });
@@ -517,6 +644,7 @@ initTheme(applyTheme);
 applyTheme();
 
 /* ---------- Saved content (titles, notes, photos) ---------- */
+projects.forEach((p) => { if (p.model) loadPartInfo(p.id); });
 loadContent(projects).then((merged) => {
   merged.forEach((m, i) => Object.assign(projects[i], { title: m.title, notes: m.notes, photos: m.photos }));
   buildList();
@@ -543,6 +671,12 @@ renderer.setAnimationLoop((now) => {
 
   if (!visible && state === "ring") return;
 
+  if (state === "part" && partCtx) {
+    if (!reduce) partCtx.orbit.spin += dt * 0.28;
+    const p = orbitPose(partCtx.orbit, partCtx.orbit.spin);
+    camera.position.copy(p.pos);
+    camTarget.copy(p.target);
+  }
   camYTarget = scrollTarget();
   camY += (camYTarget - camY) * (1 - Math.exp(-dt * 6));
   if (state === "ring") {
@@ -554,7 +688,7 @@ renderer.setAnimationLoop((now) => {
   }
 
   for (const it of items) {
-    const isActive = it === active && (state === "zoom" || state === "focused");
+    const isActive = it === active && state !== "ring" && state !== "leaving";
     const bob = reduce || isActive ? 0 : Math.sin(t * 0.9 + it.i * 1.7) * 0.07;
     it.holder.position.y += (bob - it.holder.position.y) * (1 - Math.exp(-dt * 6));
     it.hover += ((it === hovered && state === "ring" ? 1 : 0) - it.hover) * (1 - Math.exp(-dt * 10));
@@ -577,5 +711,5 @@ renderer.setAnimationLoop((now) => {
 });
 
 if (location.hostname === "localhost" || location.hostname === "127.0.0.1") {
-  window.__site = { items, focus, leave, setExplode, get state() { return state; }, camera, controls };
+  window.__site = { items, focus, leave, setExplode, enterPart, leavePart, get state() { return state; }, camera, controls };
 }

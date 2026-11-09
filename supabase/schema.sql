@@ -35,6 +35,21 @@ drop policy if exists "photos owner write" on public.photos;
 create policy "photos public read" on public.photos for select using (true);
 create policy "photos owner write" on public.photos for all to authenticated using (true) with check (true);
 
+-- Part pages: one row per part per project; "blocks" holds the text, stats, charts, images and embeds you write.
+create table if not exists public.parts (
+  project_id text not null,
+  key        text not null,
+  title      text,
+  blocks     jsonb not null default '[]'::jsonb,
+  updated_at timestamptz default now(),
+  primary key (project_id, key)
+);
+alter table public.parts enable row level security;
+drop policy if exists "parts public read" on public.parts;
+drop policy if exists "parts owner write" on public.parts;
+create policy "parts public read" on public.parts for select using (true);
+create policy "parts owner write" on public.parts for all to authenticated using (true) with check (true);
+
 -- Photo storage: public bucket, writes restricted to you.
 insert into storage.buckets (id, name, public) values ('photos', 'photos', true)
 on conflict (id) do nothing;

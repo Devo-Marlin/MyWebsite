@@ -226,3 +226,7 @@ export function initAdmin() {
   initLogin();
   restoreSession();
 }
+
+export { client as getClient, resizeImage as prepareImage };
+
+if (location.hostname === "localhost" || location.hostname === "127.0.0.1") window.__ui = { setAdmin };
