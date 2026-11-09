@@ -1,0 +1,355 @@
+{
+ "parts": {
+  "floor-mount-tube-1": {
+   "key": "floor-mount-tube-1",
+   "label": "Floor Mount Tube 1",
+   "category": "Control Stick",
+   "count": 1,
+   "extent_mm": [
+    558.8,
+    81.3,
+    27.6
+   ],
+   "volume_cm3": 125.06,
+   "area_cm2": 806.2
+  },
+  "floor-mount-tube-2": {
+   "key": "floor-mount-tube-2",
+   "label": "Floor Mount Tube 2",
+   "category": "Control Stick",
+   "count": 1,
+   "extent_mm": [
+    11.3,
+    11.3,
+    1.6
+   ],
+   "volume_cm3": 0.06,
+   "area_cm2": 2.0
+  },
+  "floor-mount-tube-3": {
+   "key": "floor-mount-tube-3",
+   "label": "Floor Mount Tube 3",
+   "category": "Control Stick",
+   "count": 1,
+   "extent_mm": [
+    11.4,
+    11.4,
+    1.6
+   ],
+   "volume_cm3": 0.06,
+   "area_cm2": 2.0
+  },
+  "floor-mount": {
+   "key": "floor-mount",
+   "label": "Floor Mount",
+   "category": "Control Stick",
+   "count": 2,
+   "extent_mm": [
+    127.1,
+    77.1,
+    36.6
+   ],
+   "volume_cm3": 35.47,
+   "area_cm2": 193.2
+  },
+  "roll-tube": {
+   "key": "roll-tube",
+   "label": "Roll Tube",
+   "category": "Control Stick",
+   "count": 1,
+   "extent_mm": [
+    1219.5,
+    58.5,
+    25.4
+   ],
+   "volume_cm3": 173.08,
+   "area_cm2": 1817.0
+  },
+  "control-stick": {
+   "key": "control-stick",
+   "label": "Control Stick",
+   "category": "Control Stick",
+   "count": 2,
+   "extent_mm": [
+    453.8,
+    96.0,
+    38.1
+   ],
+   "volume_cm3": 149.73,
+   "area_cm2": 701.5
+  },
+  "control-stick-cross-tube": {
+   "key": "control-stick-cross-tube",
+   "label": "Control Stick Cross Tube",
+   "category": "Control Stick",
+   "count": 1,
+   "extent_mm": [
+    558.8,
+    9.5,
+    9.5
+   ],
+   "volume_cm3": 29.69,
+   "area_cm2": 250.2
+  },
+  "control-arm-rod": {
+   "key": "control-arm-rod",
+   "label": "Control Arm Rod",
+   "category": "Control Stick",
+   "count": 1,
+   "extent_mm": [
+    217.2,
+    7.6,
+    7.6
+   ],
+   "volume_cm3": 9.85,
+   "area_cm2": 52.8
+  },
+  "control-arm-ball-joint": {
+   "key": "control-arm-ball-joint",
+   "label": "Control Arm Ball Joint",
+   "category": "Control Stick",
+   "count": 2,
+   "extent_mm": [
+    35.7,
+    17.4,
+    9.5
+   ],
+   "volume_cm3": 1.84,
+   "area_cm2": 18.0
+  },
+  "control-arm-tab": {
+   "key": "control-arm-tab",
+   "label": "Control Arm Tab",
+   "category": "Control Stick",
+   "count": 1,
+   "extent_mm": [
+    25.6,
+    25.6,
+    4.7
+   ],
+   "volume_cm3": 2.87,
+   "area_cm2": 17.8
+  },
+  "skin-panel-1": {
+   "key": "skin-panel-1",
+   "label": "Skin Panel 1",
+   "category": "Skin",
+   "count": 1,
+   "extent_mm": [
+    959.6,
+    477.1,
+    6.7
+   ],
+   "volume_cm3": 1498.15,
+   "area_cm2": 4688.0
+  },
+  "skin-panel-2": {
+   "key": "skin-panel-2",
+   "label": "Skin Panel 2",
+   "category": "Skin",
+   "count": 1,
+   "extent_mm": [
+    949.4,
+    651.8,
+    6.7
+   ],
+   "volume_cm3": 1020.78,
+   "area_cm2": 3255.1
+  },
+  "skin-panel-3": {
+   "key": "skin-panel-3",
+   "label": "Skin Panel 3",
+   "category": "Skin",
+   "count": 1,
+   "extent_mm": [
+    1041.4,
+    952.5,
+    6.7
+   ],
+   "volume_cm3": 6613.7,
+   "area_cm2": 20104.6
+  },
+  "skin-panel-4": {
+   "key": "skin-panel-4",
+   "label": "Skin Panel 4",
+   "category": "Skin",
+   "count": 1,
+   "extent_mm": [
+    959.6,
+    477.2,
+    6.7
+   ],
+   "volume_cm3": 1498.41,
+   "area_cm2": 4688.8
+  },
+  "skin-panel-5": {
+   "key": "skin-panel-5",
+   "label": "Skin Panel 5",
+   "category": "Skin",
+   "count": 1,
+   "extent_mm": [
+    949.4,
+    651.8,
+    6.7
+   ],
+   "volume_cm3": 1020.3,
+   "area_cm2": 3253.5
+  },
+  "skin-panel-6": {
+   "key": "skin-panel-6",
+   "label": "Skin Panel 6",
+   "category": "Skin",
+   "count": 1,
+   "extent_mm": [
+    3516.5,
+    440.8,
+    6.7
+   ],
+   "volume_cm3": 8078.03,
+   "area_cm2": 24738.1
+  },
+  "skin-panel-7": {
+   "key": "skin-panel-7",
+   "label": "Skin Panel 7",
+   "category": "Skin",
+   "count": 1,
+   "extent_mm": [
+    3516.5,
+    440.8,
+    6.7
+   ],
+   "volume_cm3": 8078.08,
+   "area_cm2": 24738.1
+  },
+  "skin-panel-8": {
+   "key": "skin-panel-8",
+   "label": "Skin Panel 8",
+   "category": "Skin",
+   "count": 1,
+   "extent_mm": [
+    3421.4,
+    1041.4,
+    6.7
+   ],
+   "volume_cm3": 11878.2,
+   "area_cm2": 36160.9
+  },
+  "skin-panel-9": {
+   "key": "skin-panel-9",
+   "label": "Skin Panel 9",
+   "category": "Skin",
+   "count": 1,
+   "extent_mm": [
+    1041.4,
+    863.6,
+    6.7
+   ],
+   "volume_cm3": 5996.48,
+   "area_cm2": 18241.1
+  },
+  "skin-panel-10": {
+   "key": "skin-panel-10",
+   "label": "Skin Panel 10",
+   "category": "Skin",
+   "count": 1,
+   "extent_mm": [
+    779.9,
+    581.7,
+    6.7
+   ],
+   "volume_cm3": 1455.16,
+   "area_cm2": 4508.0
+  },
+  "skin-panel-11": {
+   "key": "skin-panel-11",
+   "label": "Skin Panel 11",
+   "category": "Skin",
+   "count": 1,
+   "extent_mm": [
+    601.5,
+    587.6,
+    6.7
+   ],
+   "volume_cm3": 1228.75,
+   "area_cm2": 3800.4
+  },
+  "skin-panel-12": {
+   "key": "skin-panel-12",
+   "label": "Skin Panel 12",
+   "category": "Skin",
+   "count": 1,
+   "extent_mm": [
+    601.5,
+    587.6,
+    6.7
+   ],
+   "volume_cm3": 1228.74,
+   "area_cm2": 3800.4
+  },
+  "skin-panel-13": {
+   "key": "skin-panel-13",
+   "label": "Skin Panel 13",
+   "category": "Skin",
+   "count": 1,
+   "extent_mm": [
+    1041.4,
+    419.7,
+    6.7
+   ],
+   "volume_cm3": 2629.73,
+   "area_cm2": 8071.1
+  },
+  "skin-panel-14": {
+   "key": "skin-panel-14",
+   "label": "Skin Panel 14",
+   "category": "Skin",
+   "count": 1,
+   "extent_mm": [
+    1041.4,
+    420.7,
+    6.7
+   ],
+   "volume_cm3": 2636.24,
+   "area_cm2": 8090.8
+  },
+  "skin-panel-15": {
+   "key": "skin-panel-15",
+   "label": "Skin Panel 15",
+   "category": "Skin",
+   "count": 1,
+   "extent_mm": [
+    785.2,
+    576.7,
+    6.7
+   ],
+   "volume_cm3": 1471.61,
+   "area_cm2": 4558.1
+  },
+  "skin-panel-16": {
+   "key": "skin-panel-16",
+   "label": "Skin Panel 16",
+   "category": "Skin",
+   "count": 1,
+   "extent_mm": [
+    1041.4,
+    450.9,
+    6.7
+   ],
+   "volume_cm3": 3130.5,
+   "area_cm2": 9589.3
+  },
+  "tube-frame": {
+   "key": "tube-frame",
+   "label": "Tube Frame",
+   "category": "Frame",
+   "count": 1,
+   "extent_mm": [
+    5034.6,
+    1261.3,
+    1087.4
+   ],
+   "volume_cm3": null,
+   "area_cm2": 77700.8
+  }
+ }
+}

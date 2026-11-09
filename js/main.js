@@ -176,14 +176,16 @@ function setupModel(it, gltf) {
   }
 
   parts.forEach((pt) => {
-    let rad = 0;
+    // Bounding-box corners relative to the part's centre, used to frame the camera around the exploded shape.
+    pt.corners = [];
     pt.node.traverse((o) => {
-      if (o.isMesh) {
-        o.geometry.computeBoundingSphere();
-        rad = Math.max(rad, o.geometry.boundingSphere.radius);
+      if (!o.isMesh) return;
+      o.geometry.computeBoundingBox();
+      const { min, max } = o.geometry.boundingBox;
+      for (const x of [min.x, max.x]) for (const y of [min.y, max.y]) for (const z of [min.z, max.z]) {
+        pt.corners.push(new THREE.Vector3(x, y, z).applyMatrix4(pt.node.matrix).sub(pt.node.position));
       }
     });
-    pt.rad = rad;
     pt.key = slug(pt.label);
   });
   it.s = s;
@@ -204,10 +206,12 @@ function computeFit(it) {
   let fitR = 0, fitY = 0;
   for (const pt of it.parts) {
     const e = pt.base.clone().addScaledVector(pt.dir, exScale);
-    fitR = Math.max(fitR, Math.hypot(e.x, e.z) + pt.rad);
-    fitY = Math.max(fitY, Math.abs(e.y) + pt.rad * 0.3);
+    for (const c of pt.corners) {
+      fitR = Math.max(fitR, Math.hypot(e.x + c.x, e.z + c.z));
+      fitY = Math.max(fitY, Math.abs(e.y + c.y));
+    }
   }
-  it.fitR = fitR * it.s * 1.06;
+  it.fitR = fitR * it.s * 1.1;
   it.fitY = fitY * it.s + 0.35;
 }
 
