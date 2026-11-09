@@ -1,401 +1,128 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Devon Marlin — Engineering &amp; Build Portfolio</title>
-<meta name="description" content="Devon Marlin — engineering student, fabricator, and builder. Track-focused Miata development, FPV drone engineering, mechatronics, and the media that documents it." />
+<title>Devon Marlin</title>
+<meta name="description" content="Devon Marlin — projects, builds, and models." />
+<meta property="og:title" content="Devon Marlin" />
 <meta property="og:type" content="website" />
-<meta property="og:title" content="Devon Marlin — Engineering & Build Portfolio" />
-<meta property="og:description" content="Design, fabrication, and testing across automotive, FPV, and mechatronic projects — documented in build logs and photography." />
-<meta property="og:image" content="Photos/web/hero.jpg" />
-<meta name="twitter:card" content="summary_large_image" />
-<link rel="icon" type="image/svg+xml" href="Photos/web/favicon.svg" />
+<meta name="theme-color" content="#861f41" />
+<link rel="icon" type="image/svg+xml" href="favicon.svg" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="styles.css" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="css/site.css" />
+<script>
+  try { var t = localStorage.getItem("theme"); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
+</script>
+<script type="importmap">
+{
+  "imports": {
+    "three": "./vendor/three/three.module.min.js",
+    "three/addons/": "./vendor/three/addons/"
+  }
+}
+</script>
+<script src="config.js"></script>
 </head>
 <body>
 
-<a class="skip-link" href="#main">Skip to content</a>
+<a class="skip" href="#ring">Skip to models</a>
 
-<header class="site-header">
-  <div class="nav-row">
-    <a href="index.html" class="brand"><span class="brand-mark"></span>DEVON MARLIN<small>// PORTFOLIO</small></a>
-    <nav class="nav-links desktop-only" aria-label="Primary">
-      <a href="index.html#work">Work</a>
-      <a href="About.html">About</a>
-      <a href="Cinematography.html">Media</a>
-      <a href="index.html#contact">Contact</a>
-    </nav>
-    <div class="nav-right">
-      <div class="nav-status"><span class="dot"></span>AVAILABLE FOR WORK</div>
-      <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobilePanel">
-        <span></span><span></span><span></span>
-      </button>
-    </div>
-  </div>
+<header class="corner">
+  <a class="mark" href="#top" aria-label="Devon Marlin">DM</a>
+  <button class="icon-btn" id="theme" type="button" aria-label="Toggle light and dark theme">
+    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true">
+      <circle cx="12" cy="12" r="4.2"/>
+      <path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M18.7 5.3l-1.6 1.6M6.9 17.1l-1.6 1.6"/>
+    </svg>
+  </button>
 </header>
 
-<div class="mobile-panel" id="mobilePanel">
-  <nav class="nav-links" aria-label="Mobile">
-    <a href="index.html#work">Work</a>
-    <a href="About.html">About</a>
-    <a href="Cinematography.html">Media</a>
-    <a href="index.html#contact">Contact</a>
-  </nav>
-  <div class="mobile-panel-foot">
-    <span>DEVON MARLIN</span>
-    <span data-year>2026</span>
-  </div>
-</div>
+<main id="top">
 
-<main id="main">
-
-  <!-- HERO -->
-  <section class="hero">
-    <div class="hero-grid">
-      <div class="hero-copy">
-        <span class="eyebrow">Engineering / Automotive / Design / Media</span>
-        <h1>Engineering things<br />worth remembering.</h1>
-        <p class="text-body-lg">
-          I design, build, test, and document real projects — a track-focused
-          Miata build, custom FPV drones, and mechatronic experiments — then
-          shoot and edit the process along the way.
-        </p>
-        <div class="btn-row">
-          <a href="#work" class="btn btn-primary">View Projects <span class="arrow">→</span></a>
-          <a href="About.html" class="btn">About Me</a>
-        </div>
-        <dl class="hero-meta">
-          <div>
-            <div class="value">04</div>
-            <div class="label">Active Projects</div>
-          </div>
-          <div>
-            <div class="value">1991</div>
-            <div class="label">MX-5 Build Year</div>
-          </div>
-          <div>
-            <div class="value">2026</div>
-            <div class="label">Current Season</div>
-          </div>
-        </dl>
-      </div>
-
-      <div class="hero-visual">
-        <div class="frame reveal">
-          <span class="corner tl"></span><span class="corner tr"></span>
-          <span class="corner bl"></span><span class="corner br"></span>
-          <img src="Photos/web/hero.jpg" alt="Devon Marlin at work on a project" width="1200" height="1500" fetchpriority="high" />
-          <span class="frame-tag">DM // 01</span>
-        </div>
-        <div class="hero-chip chip-1"><span class="dot" style="width:5px;height:5px;border-radius:50%;background:var(--status);box-shadow:0 0 5px var(--status);"></span><strong>MX-5</strong>&nbsp;Track Build — Active</div>
-        <div class="hero-chip chip-2"><strong>FPV</strong>&nbsp;5" Freestyle — In Development</div>
-      </div>
-    </div>
-
-    <a href="#work" class="scroll-cue link-sweep"><span>Scroll</span><span class="line"></span></a>
+  <section class="hero" aria-label="Devon Marlin">
+    <h1 class="name"><span>Devon</span><span>Marlin</span></h1>
+    <span class="rule" aria-hidden="true"></span>
+    <a class="cue" href="#ring" aria-label="Scroll to models"><span></span></a>
   </section>
 
-  <!-- SELECTED WORK -->
-  <section class="section section-border-top" id="work">
-    <div class="container">
-      <div class="section-head reveal">
-        <div>
-          <span class="index tech-label">01 — Selected Work</span>
-          <h2>Projects I've designed,<br />built, and tested.</h2>
-        </div>
-        <p>Four ongoing builds spanning automotive fabrication, flight, mechatronics, and motorsport data — each documented as it develops.</p>
-      </div>
+  <section class="ring-wrap" id="ring" aria-label="Projects">
+    <div class="stage" id="stage">
+      <canvas id="gl"></canvas>
+      <div class="progress" id="progress" aria-hidden="true"></div>
 
-      <div class="work-grid">
-
-        <a href="Miata.html" class="project-card feature reveal">
-          <div class="frame">
-            <span class="corner tl"></span><span class="corner tr"></span>
-            <span class="corner bl"></span><span class="corner br"></span>
-            <img src="Photos/Miata.jpg" alt="1991 Mazda MX-5 Miata track build" loading="lazy" />
-            <span class="frame-tag">VEHICLE // NA</span>
-          </div>
-          <div class="project-body">
-            <div class="project-meta-row">
-              <span class="project-status active"><span class="dot"></span>Active Development</span>
-              <span class="tech-label">2026</span>
-            </div>
-            <h3>1991 Mazda MX-5 — Track Build</h3>
-            <p>A lightweight, handling-focused build developed toward the track while staying clean enough to function as a show car. Mechanical simplicity over complexity, reliability over lap-time chasing.</p>
-            <div class="project-tools">
-              <span>Suspension</span><span>Weight Reduction</span><span>Fabrication</span>
-            </div>
-            <span class="project-link">View Case Study <span class="arrow">→</span></span>
-          </div>
-        </a>
-
-        <a href="FPV-Drones.html" class="project-card medium reveal">
-          <div class="frame">
-            <span class="corner tl"></span><span class="corner tr"></span>
-            <span class="corner bl"></span><span class="corner br"></span>
-            <img src="Photos/web/avata.jpg" alt="Custom 5 inch FPV freestyle drone" loading="lazy" />
-            <span class="frame-tag">UAV // 5"</span>
-          </div>
-          <div class="project-body">
-            <div class="project-meta-row">
-              <span class="project-status active"><span class="dot"></span>Active Development</span>
-            </div>
-            <h3>FPV Drone Development</h3>
-            <p>Custom 5" freestyle frame with replaceable arms and a removable action-camera mount, built around DJI O3.</p>
-            <div class="project-tools"><span>3D Printing</span><span>Frame Design</span></div>
-            <span class="project-link">View Case Study <span class="arrow">→</span></span>
-          </div>
-        </a>
-
-        <a href="Beerlista.html" class="project-card medium reveal">
-          <div class="frame">
-            <span class="corner tl"></span><span class="corner tr"></span>
-            <span class="corner bl"></span><span class="corner br"></span>
-            <img src="Photos/beerlista.jpg" alt="Beerlista mechatronic launcher" loading="lazy" />
-            <span class="frame-tag">MECHATRONICS</span>
-          </div>
-          <div class="project-body">
-            <div class="project-meta-row">
-              <span class="project-status"><span class="dot"></span>Prototype</span>
-            </div>
-            <h3>Beerlista</h3>
-            <p>A ballista-inspired launcher with motorized aiming and pullback, run from a Raspberry Pi touchscreen interface.</p>
-            <div class="project-tools"><span>Raspberry Pi</span><span>Arduino</span></div>
-            <span class="project-link">View Case Study <span class="arrow">→</span></span>
-          </div>
-        </a>
-
-        <a href="Formula-G.html" class="project-card strip reveal">
-          <div class="frame">
-            <span class="corner tl"></span><span class="corner tr"></span>
-            <span class="corner bl"></span><span class="corner br"></span>
-            <img src="Photos/Formula G.jpg" alt="Formula G collegiate race car project" loading="lazy" />
-            <span class="frame-tag">MOTORSPORT</span>
-          </div>
-          <div class="project-body">
-            <div class="project-meta-row">
-              <span class="project-status"><span class="dot"></span>In Progress</span>
-              <span class="tech-label">Collegiate Competition</span>
-            </div>
-            <h3>Formula G</h3>
-            <p>Design, analysis, and testing for a student-built race car in collegiate competition — from concept through on-track validation.</p>
-            <div class="project-tools"><span>Design</span><span>Testing</span><span>Data Analysis</span></div>
-            <span class="project-link">View Case Study <span class="arrow">→</span></span>
-          </div>
-        </a>
-
+      <div class="hud" id="hud" hidden>
+        <button class="icon-btn close" id="close" type="button" aria-label="Back to all projects">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19"/></svg>
+        </button>
+        <div class="hud-title" id="hud-title"></div>
+        <label class="explode" id="explode-wrap">
+          <span>Explode</span>
+          <input type="range" id="explode" min="0" max="1.15" step="0.001" value="0" aria-label="Exploded view amount" />
+        </label>
+        <button class="pill" id="open-drawer" type="button" hidden>Photos</button>
       </div>
     </div>
-  </section>
-
-  <!-- CURRENT BUILD SPOTLIGHT: MIATA -->
-  <section class="section section-border-top">
-    <div class="container">
-      <div class="section-head reveal">
-        <div>
-          <span class="index tech-label">02 — Current Build</span>
-          <h2>1991 Mazda MX-5<br />Track Development</h2>
-        </div>
-        <a href="Miata.html" class="btn">Full Build Log <span class="arrow">→</span></a>
-      </div>
-
-      <div class="spotlight reveal">
-        <div class="frame">
-          <span class="corner tl"></span><span class="corner tr"></span>
-          <span class="corner bl"></span><span class="corner br"></span>
-          <img src="Photos/Miata.jpg" alt="Miata on coilovers during suspension mockup" loading="lazy" />
-          <span class="frame-tag">BUILD LOG // 03</span>
-        </div>
-        <div>
-          <p class="text-body-lg">
-            The goal isn't the fastest lap time — it's a mechanically simple,
-            reliable car that rewards good inputs. Every change is weighed
-            against weight, reliability, and driver feedback before it goes on
-            the car.
-          </p>
-          <dl class="spotlight-specs">
-            <div>
-              <dt>Platform</dt>
-              <dd>NA — 1991 MX-5</dd>
-            </div>
-            <div>
-              <dt>Focus</dt>
-              <dd>Handling &amp; Feedback</dd>
-            </div>
-            <div>
-              <dt>Status</dt>
-              <dd>Active Development</dd>
-            </div>
-            <div>
-              <dt>Approach</dt>
-              <dd>Iterative, Documented</dd>
-            </div>
-          </dl>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- DISCIPLINES -->
-  <section class="section section-border-top">
-    <div class="container">
-      <div class="section-head reveal">
-        <div>
-          <span class="index tech-label">03 — Disciplines</span>
-          <h2>Engineering + creative<br />disciplines, overlapping.</h2>
-        </div>
-        <p>Building the thing is one skill. Communicating it clearly is another — I try to treat both as part of the same process.</p>
-      </div>
-
-      <div class="disciplines-grid reveal">
-        <div class="discipline-card">
-          <span class="num tech-label">01</span>
-          <h4>Engineering</h4>
-          <p>Mechanical design, prototyping, and testing across vehicle and mechatronic systems.</p>
-        </div>
-        <div class="discipline-card">
-          <span class="num tech-label">02</span>
-          <h4>Fabrication</h4>
-          <p>Automotive repair, 3D printing, and mechanical assembly — building what CAD can't finish alone.</p>
-        </div>
-        <div class="discipline-card">
-          <span class="num tech-label">03</span>
-          <h4>FPV &amp; Flight</h4>
-          <p>Custom drone frames, flight controller tuning, and acro-ready builds.</p>
-        </div>
-        <div class="discipline-card">
-          <span class="num tech-label">04</span>
-          <h4>Photo &amp; Film</h4>
-          <p>Documenting builds and flights — photography and FPV cinematography.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- MEDIA PREVIEW -->
-  <section class="section section-border-top">
-    <div class="container">
-      <div class="section-head reveal">
-        <div>
-          <span class="index tech-label">04 — Media</span>
-          <h2>Shot along the way.</h2>
-        </div>
-        <a href="Cinematography.html" class="btn">Full Gallery <span class="arrow">→</span></a>
-      </div>
-
-      <div class="media-grid reveal">
-        <div class="media-item wide">
-          <div class="frame">
-            <span class="corner tl"></span><span class="corner tr"></span>
-            <span class="corner bl"></span><span class="corner br"></span>
-            <img src="Photos/web/hero.jpg" alt="Environmental portrait" loading="lazy" />
-          </div>
-        </div>
-        <div class="media-item">
-          <div class="frame">
-            <span class="corner tl"></span><span class="corner tr"></span>
-            <span class="corner bl"></span><span class="corner br"></span>
-            <img src="Photos/web/avata.jpg" alt="FPV drone" loading="lazy" />
-          </div>
-        </div>
-        <div class="media-item">
-          <div class="frame">
-            <span class="corner tl"></span><span class="corner tr"></span>
-            <span class="corner bl"></span><span class="corner br"></span>
-            <img src="Photos/Miata.jpg" alt="Miata build" loading="lazy" />
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ABOUT TEASER -->
-  <section class="section section-border-top">
-    <div class="container">
-      <div class="about-hero reveal">
-        <div>
-          <span class="index tech-label">05 — About</span>
-          <h2>Building is how I think<br />things through.</h2>
-          <p class="text-body-lg mt-lg">
-            I'm an engineering student who spends most of free time
-            underneath a car, behind a soldering iron, or flying something I
-            built. Photography and film are how I document the process —
-            entrepreneurship is the long-term direction it's all pointed at.
-          </p>
-          <div class="btn-row mt-lg">
-            <a href="About.html" class="btn btn-primary">More About Me <span class="arrow">→</span></a>
-          </div>
-        </div>
-        <div class="frame">
-          <span class="corner tl"></span><span class="corner tr"></span>
-          <span class="corner bl"></span><span class="corner br"></span>
-          <img src="Photos/web/hero.jpg" alt="Devon Marlin portrait" loading="lazy" />
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- CONTACT -->
-  <section class="section section-border-top" id="contact">
-    <div class="container">
-      <div class="contact-section reveal">
-        <div>
-          <span class="eyebrow">06 — Contact</span>
-          <h2>Let's build<br />something.</h2>
-          <p class="text-body-lg mt-lg">Open to internships, collaborations, and interesting problems. The fastest way to reach me is email.</p>
-        </div>
-        <div class="contact-links">
-          <a class="contact-link" href="mailto:contact@devonmarlin.com">
-            Email <span class="arrow">↗</span>
-          </a>
-          <a class="contact-link" href="https://github.com/Devo-Marlin" target="_blank" rel="noopener">
-            GitHub <span class="arrow">↗</span>
-          </a>
-          <a class="contact-link" href="#">
-            LinkedIn <small>Coming soon</small>
-          </a>
-        </div>
-      </div>
-    </div>
+    <ul class="vh" id="project-list"></ul>
   </section>
 
 </main>
 
-<footer class="site-footer">
-  <div class="container">
-    <div class="footer-top">
-      <div class="footer-brand">
-        <a href="index.html" class="brand"><span class="brand-mark"></span>DEVON MARLIN</a>
-        <p>Engineering, fabrication, and media — designed, built, and documented in one place.</p>
-      </div>
-      <div class="footer-col">
-        <h5>Navigate</h5>
-        <ul>
-          <li><a href="index.html#work">Work</a></li>
-          <li><a href="About.html">About</a></li>
-          <li><a href="Cinematography.html">Media</a></li>
-          <li><a href="index.html#contact">Contact</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h5>Connect</h5>
-        <ul>
-          <li><a href="mailto:contact@devonmarlin.com">Email</a></li>
-          <li><a href="https://github.com/Devo-Marlin" target="_blank" rel="noopener">GitHub</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <span>© <span data-year>2026</span> Devon Marlin</span>
-      <span class="status-line"><span class="dot"></span>PORTFOLIO // SYSTEM ONLINE</span>
-    </div>
-  </div>
+<footer class="foot">
+  <span id="foot-links"></span>
+  <button class="lock" id="lock" type="button" aria-label="Admin sign in">
+    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>
+  </button>
 </footer>
 
-<script src="script.js"></script>
+<div class="tip" id="tip" role="tooltip" hidden></div>
+
+<aside class="drawer" id="drawer" aria-hidden="true" aria-label="Project details">
+  <div class="drawer-head">
+    <div>
+      <div class="drawer-title" id="drawer-title"></div>
+      <input class="field" id="drawer-title-input" type="text" hidden aria-label="Project title" />
+    </div>
+    <button class="icon-btn" id="drawer-close" type="button" aria-label="Close details">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19"/></svg>
+    </button>
+  </div>
+  <p class="drawer-notes" id="drawer-notes"></p>
+  <textarea class="field" id="drawer-notes-input" rows="5" hidden aria-label="Project notes" placeholder="Notes"></textarea>
+  <div class="photos" id="photos"></div>
+  <div class="admin-tools" id="admin-tools" hidden>
+    <label class="pill">
+      Add photos
+      <input type="file" id="photo-input" accept="image/*" multiple hidden />
+    </label>
+    <button class="pill solid" id="save" type="button">Save</button>
+    <span class="status" id="status" role="status"></span>
+  </div>
+</aside>
+
+<div class="lightbox" id="lightbox" hidden><img alt="" /></div>
+
+<div class="adminbar" id="adminbar" hidden>
+  <span>Admin</span>
+  <button type="button" id="signout">Sign out</button>
+</div>
+
+<dialog class="login" id="login">
+  <form method="dialog" id="login-form">
+    <div class="login-title">Admin</div>
+    <p class="login-note" id="login-note" hidden></p>
+    <label>Email<input class="field" id="login-email" type="email" autocomplete="username" required /></label>
+    <label>Password<input class="field" id="login-pass" type="password" autocomplete="current-password" required /></label>
+    <p class="login-err" id="login-err" role="alert"></p>
+    <div class="login-row">
+      <button type="button" class="pill" id="login-cancel">Cancel</button>
+      <button type="submit" class="pill solid">Sign in</button>
+    </div>
+  </form>
+</dialog>
+
+<script type="module" src="js/main.js"></script>
 </body>
 </html>
