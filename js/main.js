@@ -3,10 +3,10 @@ import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
 import { toCreasedNormals } from "three/addons/utils/BufferGeometryUtils.js";
-import { PROJECTS, CONTACT } from "./data.js?v=202611090e";
-import { loadContent } from "./content.js?v=202611090e";
-import { initTheme, initDrawer, initLightbox, initAdmin, isAdmin, onAdminChange } from "./ui.js?v=202611090e";
-import { initSheet, openSheet, closeSheet, loadPartInfo } from "./sheet.js?v=202611090e";
+import { PROJECTS, CONTACT } from "./data.js?v=202611090g";
+import { loadContent } from "./content.js?v=202611090g";
+import { initTheme, initDrawer, initLightbox, initAdmin, isAdmin, onAdminChange } from "./ui.js?v=202611090g";
+import { initSheet, openSheet, closeSheet, loadPartInfo } from "./sheet.js?v=202611090g";
 
 (function () {
   try {
@@ -30,7 +30,6 @@ const ease = (k) => (k < 0.5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2);
 const css = (name) => getComputedStyle(document.documentElement).getPropertyValue(name).trim();
 
 const FIT = 3.8;
-const GHOST_SCALE = 1.75;
 const ORANGE = 0xe5751f;
 let exScale = 1;
 let active = null;
@@ -81,16 +80,6 @@ initAdmin();
 const hitSphere = new THREE.SphereGeometry(FIT * 0.6, 14, 10);
 const hitMat = new THREE.MeshBasicMaterial({ visible: false });
 
-function makeGhost() {
-  const g = new THREE.Group();
-  const geo = new THREE.IcosahedronGeometry(0.85, 1);
-  const edges = new THREE.LineSegments(new THREE.EdgesGeometry(geo), new THREE.LineBasicMaterial({ transparent: true, opacity: 0.75 }));
-  const solid = new THREE.Mesh(geo, new THREE.MeshBasicMaterial({ transparent: true, opacity: 0.08 }));
-  g.add(solid, edges);
-  g.userData.mats = [edges.material, solid.material];
-  return g;
-}
-
 const items = projects.map((p, i) => {
   const group = new THREE.Group();
   const holder = new THREE.Group();
@@ -101,12 +90,9 @@ const items = projects.map((p, i) => {
     p, i, group, holder, tilt, spin, hit, home: new THREE.Vector3(),
     vis: 1, visFrom: 1, hover: 0, mode: "browse",
     tiltAngle: 0.42, spinSpeed: 0.1, spinTarget: 0,
-    ghost: null, root: null, parts: [], meshes: [], fitR: 1.9, fitY: 1.2,
+    root: null, parts: [], meshes: [], fitR: 1.9, fitY: 1.2,
   };
   hit.userData.item = it;
-  it.ghost = makeGhost();
-  it.ghost.scale.setScalar(GHOST_SCALE);
-  spin.add(it.ghost);
   tilt.add(spin);
   holder.add(tilt, hit);
   group.add(holder);
@@ -227,9 +213,6 @@ function setupModel(it, gltf) {
   it.s = s;
   computeFit(it);
 
-  it.spin.remove(it.ghost);
-  it.ghost.traverse((o) => { o.geometry?.dispose(); });
-  it.ghost = null;
   it.spin.add(pivot);
   it.root = root;
   it.parts = parts;
@@ -392,7 +375,7 @@ function unlockScroll() {
 }
 
 function focus(it) {
-  if (state !== "ring") return;
+  if (state !== "ring" || !it.root) return;
   state = "zoom";
   active = it;
   setTip(null);
@@ -424,7 +407,12 @@ function focus(it) {
     controls.enabled = true;
     controls.update();
     if (it.p.explode && it.root) {
-      explodeTween = tween(2.2, (k) => setExplode(lerp(0, 1, ease(k))), () => (explodeTween = null));
+      // Explode, hold a moment, then reassemble. The slider is still there to explode it again by hand.
+      const IN = 2.2, HOLD = 1.0, OUT = 2.0;
+      explodeTween = tween(IN + HOLD + OUT, (k) => {
+        const t = k * (IN + HOLD + OUT);
+        setExplode(t < IN ? ease(t / IN) : t < IN + HOLD ? 1 : 1 - ease((t - IN - HOLD) / OUT));
+      }, () => (explodeTween = null));
     }
   });
 }
@@ -502,6 +490,7 @@ function enterPart(it, mesh) {
   const label = rawLabel.replace(/_/g, " ");
   const key = slug(label);
   state = "part-in";
+  if (explodeTween) explodeTween.dead = true;
   controls.enabled = false;
   setHoveredMesh(null);
   setTip(null);
@@ -595,7 +584,7 @@ function ndc(ev) {
 }
 function pickItem(ev) {
   raycaster.setFromCamera(ndc(ev), camera);
-  const hits = raycaster.intersectObjects(items.filter((o) => o.vis > 0.5).map((o) => o.hit), false);
+  const hits = raycaster.intersectObjects(items.filter((o) => o.vis > 0.5 && o.root).map((o) => o.hit), false);
   return hits.length ? hits[0].object.userData.item : null;
 }
 
@@ -620,7 +609,7 @@ canvas.addEventListener("pointermove", (ev) => {
     const it = pickItem(ev);
     hovered = it;
     stage.classList.toggle("can-click", Boolean(it));
-    if (it) setTip(esc(it.p.title) + (it.root ? "" : "<small>Model coming</small>"), ev);
+    if (it) setTip(esc(it.p.title), ev);
     else setTip(null);
   } else if (state === "focused" && active && active.meshes.length) {
     raycaster.setFromCamera(ndc(ev), camera);
@@ -733,7 +722,6 @@ function applyTheme() {
   scene.environmentIntensity = dark ? 1.15 : 1;
   key.intensity = dark ? 1.6 : 1.2;
   rim.intensity = dark ? 2.6 : 0.4;
-  for (const it of items) if (it.ghost) it.ghost.userData.mats.forEach((m) => m.color.set(accent));
 }
 initTheme(applyTheme);
 applyTheme();

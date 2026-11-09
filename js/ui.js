@@ -1,4 +1,4 @@
-import { configured, photoUrl } from "./content.js?v=202611090e";
+import { configured, photoUrl } from "./content.js?v=202611090g";
 
 const $ = (id) => document.getElementById(id);
 const cfg = window.SITE_CONFIG || {};
