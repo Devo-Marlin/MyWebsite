@@ -3,10 +3,10 @@ import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
 import { toCreasedNormals } from "three/addons/utils/BufferGeometryUtils.js";
-import { PROJECTS, CONTACT } from "./data.js?v=202611090i";
-import { loadContent } from "./content.js?v=202611090i";
-import { initTheme, initDrawer, initLightbox, initAdmin, isAdmin, onAdminChange } from "./ui.js?v=202611090i";
-import { initSheet, openSheet, closeSheet, loadPartInfo } from "./sheet.js?v=202611090i";
+import { PROJECTS, CONTACT } from "./data.js?v=202611090j";
+import { loadContent } from "./content.js?v=202611090j";
+import { initTheme, initDrawer, initLightbox, initAdmin, isAdmin, onAdminChange } from "./ui.js?v=202611090j";
+import { initSheet, openSheet, closeSheet, loadPartInfo } from "./sheet.js?v=202611090j";
 
 (function () {
   try {

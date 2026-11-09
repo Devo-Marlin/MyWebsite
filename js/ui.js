@@ -1,4 +1,4 @@
-import { configured, photoUrl } from "./content.js?v=202611090i";
+import { configured, photoUrl } from "./content.js?v=202611090j";
 
 const $ = (id) => document.getElementById(id);
 const cfg = window.SITE_CONFIG || {};
@@ -55,10 +55,24 @@ function initLogin() {
   const err = $("login-err");
   const note = $("login-note");
 
+  const pass = $("login-pass");
+  const toggle = $("pw-toggle");
+  const showPassword = (on) => {
+    pass.type = on ? "text" : "password";
+    toggle.setAttribute("aria-pressed", String(on));
+    toggle.setAttribute("aria-label", on ? "Hide password" : "Show password");
+  };
+  toggle.addEventListener("click", () => {
+    showPassword(pass.type === "password");
+    pass.focus();
+  });
+  dlg.addEventListener("close", () => showPassword(false));
+
   const open = () => {
     err.textContent = "";
+    showPassword(false);
     note.hidden = configured;
-    note.textContent = configured ? "" : "Admin is not set up yet. Add your Supabase keys to config.js.";
+    note.textContent = configured ? "" : "Admin is not connected yet: the site needs your Supabase project URL and key in config.js.";
     dlg.showModal();
     $("login-user").focus();
   };
