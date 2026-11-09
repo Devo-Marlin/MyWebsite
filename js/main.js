@@ -80,7 +80,7 @@ const items = projects.map((p, i) => {
   const it = {
     p, i, group, holder, tilt, spin, hit, home: new THREE.Vector3(),
     vis: 1, visFrom: 1, hover: 0, mode: "browse",
-    tiltAngle: 0.42, spinSpeed: 0.2, spinTarget: 0,
+    tiltAngle: 0.42, spinSpeed: 0.1, spinTarget: 0,
     ghost: null, root: null, parts: [], meshes: [], fitR: 1.9, fitY: 1.2,
   };
   hit.userData.item = it;
@@ -176,7 +176,7 @@ function setupModel(it, gltf) {
   it.root = root;
   it.parts = parts;
   it.meshes = meshes;
-  it.spinSpeed = 0.16;
+  it.spinSpeed = 0.08;
 }
 
 // Camera framing: radius and height of the exploded assembly, in scene units.
@@ -212,21 +212,28 @@ projects.forEach((p, i) => {
 /* ---------- Camera poses ---------- */
 let aspect = 1;
 let camY = 0;
-const metrics = { dist: 8, halfH: 2.3, spacing: 3, xoff: 1.2 };
+const metrics = { dist: 8, halfH: 2.3, spacing: 3, xoff: 1.2, bias: 0 };
 
 // Staggered stack: models alternate left and right, each one below the last; the camera travels down with scroll.
 function layout() {
   const v = Math.tan(THREE.MathUtils.degToRad(camera.fov / 2));
   const m = metrics;
-  m.dist = Math.max(6.8, (FIT * 0.85) / (v * aspect));
+  const portrait = aspect < 0.9;
+  // On phones the models fill most of the screen width, sit closer together, and the first one starts high on the screen.
+  m.dist = Math.max(6.8, (FIT * (portrait ? 0.68 : 0.85)) / (v * aspect));
   m.halfH = m.dist * v;
   const halfW = m.halfH * aspect;
-  m.spacing = Math.max(FIT * 0.66, m.halfH * 1.3);
-  m.xoff = halfW * 0.34;
+  m.spacing = portrait ? Math.max(FIT * 0.95, m.halfH * 0.8) : Math.max(FIT * 0.66, m.halfH * 1.3);
+  m.xoff = halfW * (portrait ? 0.13 : 0.34);
+  m.bias = portrait ? m.halfH * 0.72 : 0;
   items.forEach((it, i) => {
     it.home.set((i % 2 === 0 ? -1 : 1) * m.xoff, -i * m.spacing, 0);
     it.group.position.copy(it.home);
   });
+  // Page length follows the stack so models move 1:1 with the finger / wheel and there is no dead scrolling.
+  const sh = stage.clientHeight;
+  const travel = (items.length - 1) * m.spacing * (sh / (2 * m.halfH));
+  wrap.style.height = Math.round(sh + travel + sh * 0.2) + "px";
 }
 function browsePose() {
   return {
@@ -281,9 +288,9 @@ function setExplode(e) {
 
 function scrollTarget() {
   const r = wrap.getBoundingClientRect();
-  const total = Math.max(1, r.height - innerHeight);
+  const total = Math.max(1, r.height - stage.clientHeight);
   const p = clamp(-r.top / total, 0, 1);
-  return -p * (projects.length - 1) * metrics.spacing;
+  return -p * (projects.length - 1) * metrics.spacing - metrics.bias * (1 - p);
 }
 
 function hasDetails(p) {
@@ -672,7 +679,7 @@ renderer.setAnimationLoop((now) => {
   if (!visible && state === "ring") return;
 
   if (state === "part" && partCtx) {
-    if (!reduce) partCtx.orbit.spin += dt * 0.28;
+    if (!reduce) partCtx.orbit.spin += dt * 0.14;
     const p = orbitPose(partCtx.orbit, partCtx.orbit.spin);
     camera.position.copy(p.pos);
     camTarget.copy(p.target);

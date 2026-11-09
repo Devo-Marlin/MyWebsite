@@ -182,6 +182,7 @@ function editorFields(b, refresh) {
           const r = await c.storage.from("photos").upload(path, blob, { contentType: "image/jpeg" });
           if (r.error) throw r.error;
           b.url = photoUrl(path);
+          dirty = true;
           build();
           setStatus("Uploaded — press Save to keep it");
         } catch (e) { setStatus("Upload failed"); }
@@ -215,14 +216,15 @@ function editorCard(b, i) {
     return x;
   };
   tools.append(
-    btn("↑", "Move up", () => { [blocks[i - 1], blocks[i]] = [blocks[i], blocks[i - 1]]; build(); }, i === 0),
-    btn("↓", "Move down", () => { [blocks[i + 1], blocks[i]] = [blocks[i], blocks[i + 1]]; build(); }, i === blocks.length - 1),
-    btn("×", "Delete block", () => { if (confirm("Delete this block?")) { blocks.splice(i, 1); build(); } })
+    btn("↑", "Move up", () => { [blocks[i - 1], blocks[i]] = [blocks[i], blocks[i - 1]]; dirty = true; build(); }, i === 0),
+    btn("↓", "Move down", () => { [blocks[i + 1], blocks[i]] = [blocks[i], blocks[i + 1]]; dirty = true; build(); }, i === blocks.length - 1),
+    btn("×", "Delete block", () => { if (confirm("Delete this block?")) { blocks.splice(i, 1); dirty = true; build(); } })
   );
   head.append(tools);
   const preview = h("div", "ed-preview");
-  const refresh = () => preview.replaceChildren(RENDER[b.type](b));
-  refresh();
+  const draw = () => preview.replaceChildren(RENDER[b.type](b));
+  const refresh = () => { dirty = true; draw(); };
+  draw();
   card.append(head, editorFields(b, refresh), preview);
   return card;
 }
@@ -230,6 +232,8 @@ function editorCard(b, i) {
 /* ---------- Sheet ---------- */
 let ctx = null;
 let blocks = [];
+let dirty = false;
+let armedAt = 0;
 let onBack = () => {};
 const setStatus = (t) => { const s = $("sheet-status"); if (s) s.textContent = t || ""; };
 
@@ -272,7 +276,7 @@ function build() {
     Object.keys(NEW_BLOCK).forEach((t) => {
       const b = h("button", "pill", "+ " + TYPE_NAMES[t]);
       b.type = "button";
-      b.addEventListener("click", () => { blocks.push(NEW_BLOCK[t]()); build(); });
+      b.addEventListener("click", () => { blocks.push(NEW_BLOCK[t]()); dirty = true; build(); });
       add.append(b);
     });
   }
@@ -288,13 +292,49 @@ async function save() {
     });
     if (error) throw error;
     (remote[ctx.project.id] ||= {})[ctx.key] = clone(blocks);
+    dirty = false;
     setStatus("Saved");
   } catch (e) { setStatus("Save failed"); }
 }
 
 export function initSheet(opts) {
   onBack = opts.onBack;
-  $("sheet-back").addEventListener("click", () => onBack());
+  const scroller = $("sheet-scroll");
+  // Leaving by button asks first if there are unsaved edits; leaving by scrolling is ignored while editing.
+  const leave = (viaGesture) => {
+    if (dirty && isAdmin()) {
+      if (viaGesture) return;
+      if (!confirm("Discard unsaved changes to this page?")) return;
+    }
+    dirty = false;
+    onBack();
+  };
+  $("sheet-back").addEventListener("click", () => leave(false));
+
+  // Scroll up past the top (wheel, trackpad, or pulling down on a phone) to return to the assembly.
+  let acc = 0, accAt = 0;
+  scroller.addEventListener("wheel", (e) => {
+    if (!isSheetOpen()) return;
+    const now = performance.now();
+    if (scroller.scrollTop > 2 || e.deltaY >= 0) {
+      acc = 0;
+      if (scroller.scrollTop > 2) armedAt = now + 250;
+      return;
+    }
+    if (now < armedAt) return;
+    if (now - accAt > 400) acc = 0;
+    accAt = now;
+    acc += -e.deltaY;
+    if (acc > 100) { acc = 0; leave(true); }
+  }, { passive: true });
+
+  let startY = null, startTop = 0;
+  scroller.addEventListener("touchstart", (e) => { startY = e.touches[0].clientY; startTop = scroller.scrollTop; }, { passive: true });
+  scroller.addEventListener("touchmove", (e) => {
+    if (startY == null || startTop > 2 || performance.now() < armedAt) return;
+    if (e.touches[0].clientY - startY > 90 && scroller.scrollTop <= 0) { startY = null; leave(true); }
+  }, { passive: true });
+  scroller.addEventListener("touchend", () => { startY = null; });
   $("sheet-save").addEventListener("click", save);
   onAdminChange(() => { if (isSheetOpen()) build(); });
 }
@@ -303,6 +343,8 @@ export function openSheet(c) {
   ctx = c;
   blocks = clone((remote[c.project.id] || {})[c.key] || []);
   setStatus("");
+  dirty = false;
+  armedAt = performance.now() + 800;
   build();
   const s = $("sheet");
   s.classList.add("open");
