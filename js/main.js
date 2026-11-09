@@ -3,10 +3,11 @@ import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
 import { toCreasedNormals } from "three/addons/utils/BufferGeometryUtils.js";
-import { PROJECTS, CONTACT } from "./data.js?v=202611090j";
-import { loadContent } from "./content.js?v=202611090j";
-import { initTheme, initDrawer, initLightbox, initAdmin, isAdmin, onAdminChange } from "./ui.js?v=202611090j";
-import { initSheet, openSheet, closeSheet, loadPartInfo } from "./sheet.js?v=202611090j";
+import { PROJECTS, CONTACT } from "./data.js?v=202611090m";
+import { loadContent, loadProjectList } from "./content.js?v=202611090m";
+import { normalizeModel } from "./normalize.js?v=202611090m";
+import { initTheme, initDrawer, initLightbox, initAdmin, isAdmin, onAdminChange } from "./ui.js?v=202611090m";
+import { initSheet, openSheet, closeSheet, loadPartInfo } from "./sheet.js?v=202611090m";
 
 (function () {
   try {
@@ -71,10 +72,21 @@ const ring = new THREE.Group();
 scene.add(ring);
 
 /* ---------- Content ---------- */
-const projects = PROJECTS.map((p) => ({ ...p, photos: [] }));
+const projectList = await loadProjectList(PROJECTS);
+const hiddenDefaults = projectList.hiddenDefaults || [];
+const projects = projectList.map((p) => ({ ...p, photos: [] }));
 const drawer = initDrawer();
 initLightbox();
 initAdmin();
+if (!projects.length) wrap.hidden = true;
+
+// Admin-only tools (adding, replacing and deleting models) are loaded only once someone signs in.
+onAdminChange((on) => {
+  if (!on) return;
+  import("./admin-models.js?v=202611090m")
+    .then((m) => m.initAdminModels({ getActive: () => (active ? active.p : null), hiddenDefaults }))
+    .catch((err) => console.warn("Could not load the admin tools:", err));
+});
 
 /* ---------- Items ---------- */
 const hitSphere = new THREE.SphereGeometry(FIT * 0.6, 14, 10);
@@ -110,6 +122,7 @@ const CATEGORY_LIFT = {
 
 function setupModel(it, gltf) {
   const root = gltf.scene;
+  normalizeModel(root);
   const geoCache = new Map();
   const meshes = [];
   const nodes = new Map();
@@ -244,7 +257,8 @@ projects.forEach((p, i) => {
     p.model,
     (gltf) => {
       setupModel(items[i], gltf);
-      fetch(p.model.replace(/\.glb$/, "-parts.json")).then((r) => r.json()).then((j) => (items[i].cad = j.parts)).catch(() => {});
+      if (p.cadMeta && p.cadMeta.parts) items[i].cad = p.cadMeta.parts;
+      else if (p.source !== "db") fetch(p.model.replace(/\.glb$/, "-parts.json")).then((r) => r.json()).then((j) => (items[i].cad = j.parts)).catch(() => {});
       if (--loading === 0) progress.style.opacity = "0";
     },
     (ev) => { if (ev.total) progress.style.width = Math.round((ev.loaded / ev.total) * 100) + "%"; },

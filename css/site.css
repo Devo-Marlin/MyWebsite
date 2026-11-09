@@ -392,3 +392,16 @@ html[data-theme="light"] #theme .moon { display: block; }
 .pw-toggle .eye-off { display: none; }
 .pw-toggle[aria-pressed="true"] .eye { display: none; }
 .pw-toggle[aria-pressed="true"] .eye-off { display: block; }
+
+/* Admin: models */
+.pill.danger:hover { border-color: #c0392b; color: #c0392b; }
+.hud-admin { display: none; position: absolute; left: clamp(18px, 3vw, 36px); top: 68px; gap: 8px; flex-wrap: wrap; }
+body.is-admin .hud-admin { display: flex; }
+.adminbar button + button::before { content: "\00b7"; margin-right: 12px; text-decoration: none; display: inline-block; }
+.model-dialog { width: min(440px, 94vw); }
+.model-dialog select.field { appearance: auto; }
+.model-dialog input[type="file"].field { padding: 8px; font-size: 14px; }
+.model-restore { display: flex; flex-wrap: wrap; gap: 8px; }
+.model-restore[hidden] { display: none; }
+#model-status.bad { color: #c0392b; }
+#sheet-clear { margin-left: auto; }

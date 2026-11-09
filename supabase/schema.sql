@@ -11,8 +11,17 @@ create table if not exists public.projects (
   id         text primary key,
   title      text,
   notes      text,
+  model_path text,                 -- uploaded model file in the "models" bucket (replaces the built-in one)
+  model_meta jsonb,                -- measured parts of that model (size, volume, area)
+  sort       int  default 0,       -- order of projects added from admin mode
+  hidden     boolean default false,-- true = a built-in project the admin has removed
   updated_at timestamptz default now()
 );
+-- safe to re-run on a project created from an earlier version of this file
+alter table public.projects add column if not exists model_path text;
+alter table public.projects add column if not exists model_meta jsonb;
+alter table public.projects add column if not exists sort int default 0;
+alter table public.projects add column if not exists hidden boolean default false;
 
 create table if not exists public.photos (
   id         uuid primary key default gen_random_uuid(),
@@ -51,8 +60,10 @@ drop policy if exists "parts owner write" on public.parts;
 create policy "parts public read" on public.parts for select using (true);
 create policy "parts owner write" on public.parts for all to authenticated using (true) with check (true);
 
--- Photo storage: public bucket, writes restricted to you.
+-- Photo and model storage: public buckets, writes restricted to you.
 insert into storage.buckets (id, name, public) values ('photos', 'photos', true)
+on conflict (id) do nothing;
+insert into storage.buckets (id, name, public) values ('models', 'models', true)
 on conflict (id) do nothing;
 
 drop policy if exists "photo files public read" on storage.objects;
@@ -63,3 +74,12 @@ create policy "photo files public read"  on storage.objects for select using (bu
 create policy "photo files owner insert" on storage.objects for insert to authenticated with check (bucket_id = 'photos');
 create policy "photo files owner update" on storage.objects for update to authenticated using (bucket_id = 'photos');
 create policy "photo files owner delete" on storage.objects for delete to authenticated using (bucket_id = 'photos');
+
+drop policy if exists "model files public read" on storage.objects;
+drop policy if exists "model files owner insert" on storage.objects;
+drop policy if exists "model files owner update" on storage.objects;
+drop policy if exists "model files owner delete" on storage.objects;
+create policy "model files public read"  on storage.objects for select using (bucket_id = 'models');
+create policy "model files owner insert" on storage.objects for insert to authenticated with check (bucket_id = 'models');
+create policy "model files owner update" on storage.objects for update to authenticated using (bucket_id = 'models');
+create policy "model files owner delete" on storage.objects for delete to authenticated using (bucket_id = 'models');

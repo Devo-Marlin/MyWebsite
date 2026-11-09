@@ -12,7 +12,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="css/site.css?v=202611090j" />
+<link rel="stylesheet" href="css/site.css?v=202611090m" />
 <script>
   try { var t = localStorage.getItem("theme"); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
 </script>
@@ -24,7 +24,7 @@
   }
 }
 </script>
-<script src="config.js?v=202611090j"></script>
+<script src="config.js?v=202611090m"></script>
 </head>
 <body>
 
@@ -68,6 +68,10 @@
           <input type="range" id="explode" min="0" max="1.15" step="0.001" value="0" aria-label="Exploded view amount" />
         </label>
         <button class="pill" id="open-drawer" type="button" hidden>Photos</button>
+        <div class="hud-admin" id="hud-admin">
+          <button class="pill" id="replace-model" type="button">Replace model</button>
+          <button class="pill danger" id="delete-project" type="button">Delete</button>
+        </div>
       </div>
     </div>
     <ul class="vh" id="project-list"></ul>
@@ -97,6 +101,7 @@
         <div class="sheet-add" id="sheet-add"></div>
         <div class="sheet-save">
           <button class="pill solid" id="sheet-save" type="button">Save page</button>
+          <button class="pill danger" id="sheet-clear" type="button">Delete page content</button>
           <span class="status" id="sheet-status" role="status"></span>
         </div>
       </div>
@@ -134,6 +139,7 @@
 
 <div class="adminbar" id="adminbar" hidden>
   <span>Admin</span>
+  <button type="button" id="admin-add">+ Model</button>
   <button type="button" id="signout">Sign out</button>
 </div>
 
@@ -159,6 +165,39 @@
   </form>
 </dialog>
 
-<script type="module" src="js/main.js?v=202611090j"></script>
+<dialog class="login model-dialog" id="model-dialog">
+  <form method="dialog" id="model-form">
+    <div class="login-title" id="model-title">Add a model</div>
+    <label id="model-name-row">Name<input class="field" id="model-name" type="text" autocomplete="off" /></label>
+    <label>Model files
+      <input class="field" id="model-files" type="file" accept=".glb,.stl" multiple />
+    </label>
+    <p class="login-note">One <b>.glb</b> file, or several <b>.stl</b> files (one per part, in the assembled position). From SolidWorks or NX, export each part as STL. Files named like <i>Part-1</i>, <i>Part-2</i> count as copies of one part.</p>
+    <div class="ed-row" id="model-stl-opts" hidden>
+      <label>Units
+        <select class="field" id="model-units">
+          <option value="0.001">Millimeters</option>
+          <option value="0.0254">Inches</option>
+          <option value="1">Meters</option>
+        </select>
+      </label>
+      <label>Which way is up
+        <select class="field" id="model-up">
+          <option value="auto">Detect it</option>
+          <option value="y">Y axis</option>
+          <option value="z">Z axis</option>
+        </select>
+      </label>
+    </div>
+    <div class="model-restore" id="model-restore" hidden></div>
+    <p class="login-note" id="model-status" role="status"></p>
+    <div class="login-row">
+      <button type="button" class="pill" id="model-cancel">Cancel</button>
+      <button type="submit" class="pill solid" id="model-save">Save model</button>
+    </div>
+  </form>
+</dialog>
+
+<script type="module" src="js/main.js?v=202611090m"></script>
 </body>
 </html>

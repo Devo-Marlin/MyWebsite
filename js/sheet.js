@@ -1,17 +1,16 @@
-import { configured, photoUrl } from "./content.js?v=202611090j";
-import { isAdmin, onAdminChange, getClient, prepareImage } from "./ui.js?v=202611090j";
-import { renderChart } from "./charts.js?v=202611090j";
+import { isConfigured, getCfg, photoUrl } from "./content.js?v=202611090m";
+import { isAdmin, onAdminChange, getClient, prepareImage } from "./ui.js?v=202611090m";
+import { renderChart } from "./charts.js?v=202611090m";
 
 const $ = (id) => document.getElementById(id);
-const cfg = window.SITE_CONFIG || {};
 const remote = {}; // projectId -> { partKey: blocks[] }
 const clone = (v) => JSON.parse(JSON.stringify(v));
 
 export async function loadPartInfo(projectId) {
-  if (!configured) return;
+  if (!isConfigured()) return;
   try {
-    const res = await fetch(`${cfg.supabaseUrl}/rest/v1/parts?project_id=eq.${encodeURIComponent(projectId)}&select=key,blocks`, {
-      headers: { apikey: cfg.supabaseAnonKey, Authorization: "Bearer " + cfg.supabaseAnonKey },
+    const res = await fetch(`${getCfg().supabaseUrl}/rest/v1/parts?project_id=eq.${encodeURIComponent(projectId)}&select=key,blocks`, {
+      headers: { apikey: getCfg().supabaseAnonKey, Authorization: "Bearer " + getCfg().supabaseAnonKey },
     });
     if (!res.ok) throw new Error(String(res.status));
     const rows = await res.json();
@@ -336,6 +335,21 @@ export function initSheet(opts) {
   }, { passive: true });
   scroller.addEventListener("touchend", () => { startY = null; });
   $("sheet-save").addEventListener("click", save);
+  $("sheet-clear").addEventListener("click", async () => {
+    if (!ctx || !isAdmin()) return;
+    if (!confirm("Delete everything written on this part's page?")) return;
+    setStatus("Deleting\u2026");
+    try {
+      const c = await getClient();
+      const { error } = await c.from("parts").delete().eq("project_id", ctx.project.id).eq("key", ctx.key);
+      if (error) throw error;
+      blocks = [];
+      delete (remote[ctx.project.id] || {})[ctx.key];
+      dirty = false;
+      build();
+      setStatus("Deleted");
+    } catch (e) { setStatus("Delete failed"); }
+  });
   onAdminChange(() => { if (isSheetOpen()) build(); });
 }
 

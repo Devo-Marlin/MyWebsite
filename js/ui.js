@@ -1,7 +1,6 @@
-import { configured, photoUrl } from "./content.js?v=202611090j";
+import { isConfigured, getCfg, photoUrl } from "./content.js?v=202611090m";
 
 const $ = (id) => document.getElementById(id);
-const cfg = window.SITE_CONFIG || {};
 
 /* ---------- Theme ---------- */
 export function initTheme(onChange) {
@@ -28,7 +27,7 @@ export const onAdminChange = (fn) => adminListeners.push(fn);
 async function client() {
   if (sb) return sb;
   const { createClient } = await import("https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm");
-  sb = createClient(cfg.supabaseUrl, cfg.supabaseAnonKey);
+  sb = createClient(getCfg().supabaseUrl, getCfg().supabaseAnonKey);
   return sb;
 }
 
@@ -40,7 +39,7 @@ function setAdmin(on) {
 }
 
 async function restoreSession() {
-  if (!configured) return;
+  if (!isConfigured()) return;
   const hasStored = Object.keys(localStorage).some((k) => k.startsWith("sb-") && k.endsWith("-auth-token"));
   if (!hasStored) return;
   try {
@@ -71,8 +70,8 @@ function initLogin() {
   const open = () => {
     err.textContent = "";
     showPassword(false);
-    note.hidden = configured;
-    note.textContent = configured ? "" : "Admin is not connected yet: the site needs your Supabase project URL and key in config.js.";
+    note.hidden = isConfigured();
+    note.textContent = isConfigured() ? "" : "Admin is not connected yet: the site needs your Supabase project URL and key in config.js.";
     dlg.showModal();
     $("login-user").focus();
   };
@@ -82,14 +81,14 @@ function initLogin() {
 
   $("login-form").addEventListener("submit", async (e) => {
     e.preventDefault();
-    if (!configured) { err.textContent = "Supabase keys are missing in config.js."; return; }
+    if (!isConfigured()) { err.textContent = "Supabase keys are missing in config.js."; return; }
     err.textContent = "";
     try {
       const c = await client();
       // Supabase signs in with an email. A plain username maps to <username>@<adminEmailDomain>, so the
       // admin user in Supabase is created with that address and the real password lives only there.
       const raw = $("login-user").value.trim();
-      const email = raw.includes("@") ? raw : `${raw.toLowerCase()}@${cfg.adminEmailDomain || "devonmarlin.com"}`;
+      const email = raw.includes("@") ? raw : `${raw.toLowerCase()}@${getCfg().adminEmailDomain || "devonmarlin.com"}`;
       const { error } = await c.auth.signInWithPassword({ email, password: $("login-pass").value });
       if (error) { err.textContent = error.message; return; }
       $("login-pass").value = "";
@@ -249,4 +248,4 @@ export function initAdmin() {
 
 export { client as getClient, resizeImage as prepareImage };
 
-if (location.hostname === "localhost" || location.hostname === "127.0.0.1") window.__ui = { setAdmin };
+if (location.hostname === "localhost" || location.hostname === "127.0.0.1") window.__ui = { setAdmin, setClient: (c) => { sb = c; } };
