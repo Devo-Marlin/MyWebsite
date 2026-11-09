@@ -328,13 +328,34 @@ function updateHud() {
 }
 
 /* ---------- Focus / leave ---------- */
+// Freezing the page with a fixed body is the only scroll lock iOS Safari reliably respects.
+let lockY = 0;
+function lockScroll() {
+  lockY = window.scrollY;
+  const b = document.body.style;
+  document.documentElement.classList.add("no-scroll");
+  b.position = "fixed";
+  b.top = `-${lockY}px`;
+  b.left = "0";
+  b.right = "0";
+}
+function unlockScroll() {
+  const b = document.body.style;
+  document.documentElement.classList.remove("no-scroll");
+  b.position = b.top = b.left = b.right = "";
+  const root = document.documentElement.style;
+  root.scrollBehavior = "auto";
+  window.scrollTo(0, lockY);
+  root.scrollBehavior = "";
+}
+
 function focus(it) {
   if (state !== "ring") return;
   state = "zoom";
   active = it;
   setTip(null);
   visible = true;
-  document.documentElement.classList.add("no-scroll");
+  lockScroll();
   stage.classList.add("is-focused");
   stage.classList.remove("can-click");
   $("hud").hidden = false;
@@ -394,7 +415,7 @@ function leave() {
     state = "ring";
     active = null;
     stage.classList.remove("is-focused");
-    document.documentElement.classList.remove("no-scroll");
+    unlockScroll();
   });
 }
 
@@ -742,5 +763,5 @@ renderer.setAnimationLoop((now) => {
 });
 
 if (location.hostname === "localhost" || location.hostname === "127.0.0.1") {
-  window.__site = { items, focus, leave, setExplode, enterPart, leavePart, get state() { return state; }, camera, controls };
+  window.__site = { items, focus, leave, setExplode, enterPart, leavePart, lockScroll, unlockScroll, get state() { return state; }, camera, controls };
 }
