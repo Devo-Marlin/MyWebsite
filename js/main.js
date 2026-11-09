@@ -15,8 +15,8 @@ const clamp = THREE.MathUtils.clamp;
 const ease = (k) => (k < 0.5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2);
 const css = (name) => getComputedStyle(document.documentElement).getPropertyValue(name).trim();
 
-const RING_R = 3.4;
-const FIT = 2.9;
+const FIT = 3.8;
+const GHOST_SCALE = 1.75;
 const ORANGE = 0xe5751f;
 
 const stage = $("stage");
@@ -53,7 +53,7 @@ initLightbox();
 initAdmin();
 
 /* ---------- Items ---------- */
-const hitSphere = new THREE.SphereGeometry(1.3, 12, 8);
+const hitSphere = new THREE.SphereGeometry(FIT * 0.5, 14, 10);
 const hitMat = new THREE.MeshBasicMaterial({ visible: false });
 
 function makeGhost() {
@@ -67,21 +67,20 @@ function makeGhost() {
 }
 
 const items = projects.map((p, i) => {
-  const phi = (i / projects.length) * TAU;
   const group = new THREE.Group();
-  group.position.set(Math.sin(phi) * RING_R, 0, Math.cos(phi) * RING_R);
   const holder = new THREE.Group();
   const tilt = new THREE.Group();
   const spin = new THREE.Group();
   const hit = new THREE.Mesh(hitSphere, hitMat);
   const it = {
-    p, i, phi, group, holder, tilt, spin, hit,
-    vis: 1, visFrom: 1, hover: 0, mode: "ring",
+    p, i, group, holder, tilt, spin, hit, home: new THREE.Vector3(),
+    vis: 1, visFrom: 1, hover: 0, mode: "browse",
     tiltAngle: 0.42, spinSpeed: 0.2, spinTarget: 0,
-    ghost: null, root: null, parts: [], meshes: [], fitR: 1.4, fitY: 0.9,
+    ghost: null, root: null, parts: [], meshes: [], fitR: 1.9, fitY: 1.2,
   };
   hit.userData.item = it;
   it.ghost = makeGhost();
+  it.ghost.scale.setScalar(GHOST_SCALE);
   spin.add(it.ghost);
   tilt.add(spin);
   holder.add(tilt, hit);
@@ -197,16 +196,33 @@ projects.forEach((p, i) => {
 
 /* ---------- Camera poses ---------- */
 let aspect = 1;
-let ringRx = RING_R;
-function ringPose() {
+let camY = 0;
+const metrics = { dist: 8, halfH: 2.3, spacing: 3, xoff: 1.2 };
+
+// Staggered stack: models alternate left and right, each one below the last; the camera travels down with scroll.
+function layout() {
   const v = Math.tan(THREE.MathUtils.degToRad(camera.fov / 2));
-  const dist = Math.max(7.6, (ringRx + 1.5) / (v * aspect) - RING_R * 0.55);
-  return { pos: new THREE.Vector3(0, 2.2 + dist * 0.28, RING_R + dist), target: new THREE.Vector3(0, 0.1, 0) };
+  const m = metrics;
+  m.dist = Math.max(6.8, (FIT * 0.85) / (v * aspect));
+  m.halfH = m.dist * v;
+  const halfW = m.halfH * aspect;
+  m.spacing = Math.max(FIT * 0.66, m.halfH * 1.3);
+  m.xoff = halfW * 0.34;
+  items.forEach((it, i) => {
+    it.home.set((i % 2 === 0 ? -1 : 1) * m.xoff, -i * m.spacing, 0);
+    it.group.position.copy(it.home);
+  });
+}
+function browsePose() {
+  return {
+    pos: new THREE.Vector3(0, camY + metrics.dist * 0.14, metrics.dist),
+    target: new THREE.Vector3(0, camY, 0),
+  };
 }
 function focusPose(it) {
   const v = Math.tan(THREE.MathUtils.degToRad(camera.fov / 2));
   const d = Math.max((it.fitY + it.fitR * 0.45) / v, it.fitR / (v * aspect));
-  return { pos: new THREE.Vector3(0, d * 0.4, RING_R + d), target: new THREE.Vector3(0, 0, RING_R) };
+  return { pos: it.home.clone().add(new THREE.Vector3(0, d * 0.4, d)), target: it.home.clone() };
 }
 
 function resize() {
@@ -214,9 +230,9 @@ function resize() {
   if (!w || !h) return;
   renderer.setSize(w, h, false);
   aspect = w / h;
-  ringRx = RING_R * clamp(aspect / 1.25, 0.45, 1);
   camera.aspect = aspect;
   camera.updateProjectionMatrix();
+  layout();
 }
 new ResizeObserver(resize).observe(stage);
 resize();
@@ -230,10 +246,9 @@ function tween(dur, fn, done) {
 }
 
 /* ---------- State ---------- */
-let state = "ring"; // ring | zoom | focused | leaving
+let state = "ring"; // ring (browsing the stack) | zoom | focused | leaving
 let active = null;
-let ringTheta = 0;
-let scrollDriven = true;
+let camYTarget = 0;
 let exploded = 0;
 let explodeTween = null;
 let visible = true;
@@ -253,7 +268,7 @@ function scrollTarget() {
   const r = wrap.getBoundingClientRect();
   const total = Math.max(1, r.height - innerHeight);
   const p = clamp(-r.top / total, 0, 1);
-  return -p * ((projects.length - 1) / projects.length) * TAU;
+  return -p * (projects.length - 1) * metrics.spacing;
 }
 
 function hasDetails(p) {
@@ -280,20 +295,15 @@ function focus(it) {
   updateHud();
   setExplode(0);
 
-  const th0 = ringTheta;
-  let th1 = -it.phi;
-  th1 += Math.round((th0 - th1) / TAU) * TAU;
   const c0 = camera.position.clone();
   const t0 = camTarget.clone();
   const f = focusPose(it);
-  scrollDriven = false;
   it.mode = "present";
   it.spinTarget = Math.round(it.spin.rotation.y / TAU) * TAU + 0.5;
   items.forEach((o) => (o.visFrom = o.vis));
 
   tween(1.6, (k0) => {
     const k = ease(k0);
-    ringTheta = lerp(th0, th1, k);
     camera.position.lerpVectors(c0, f.pos, k);
     camTarget.lerpVectors(t0, f.target, k);
     for (const o of items) if (o !== it) o.vis = lerp(o.visFrom, 0, clamp(k * 1.5, 0, 1));
@@ -323,9 +333,9 @@ function leave() {
   const e0 = exploded;
   const c0 = camera.position.clone();
   const t0 = wasZoom ? camTarget.clone() : controls.target.clone();
-  const r = ringPose();
+  const r = browsePose();
   items.forEach((o) => (o.visFrom = o.vis));
-  it.mode = "ring";
+  it.mode = "browse";
 
   tween(1.3, (k0) => {
     const k = ease(k0);
@@ -336,7 +346,6 @@ function leave() {
   }, () => {
     state = "ring";
     active = null;
-    scrollDriven = true;
     stage.classList.remove("is-focused");
     document.documentElement.classList.remove("lock");
   });
@@ -354,7 +363,7 @@ addEventListener("keydown", (e) => {
   else leave();
 });
 
-drawer.onChange(() => { updateHud(); buildList(); });
+drawer.onChange(() => { updateHud(); buildList(); updateLabelText(); });
 onAdminChange(updateHud);
 
 /* ---------- Picking / hover ---------- */
@@ -421,6 +430,49 @@ canvas.addEventListener("pointerup", (ev) => {
   if (it) focus(it);
 });
 
+/* ---------- Name labels (opposite side of each model) ---------- */
+const labelsEl = $("labels");
+const labelEls = items.map((it) => {
+  const b = document.createElement("button");
+  b.type = "button";
+  b.className = "label";
+  b.innerHTML = '<span class="n"></span><span class="t"></span>';
+  b.querySelector(".n").textContent = String(it.i + 1).padStart(2, "0");
+  b.addEventListener("click", () => focus(it));
+  labelsEl.append(b);
+  return b;
+});
+function updateLabelText() {
+  items.forEach((it, i) => (labelEls[i].querySelector(".t").textContent = it.p.title));
+}
+updateLabelText();
+
+const projectV = new THREE.Vector3();
+function updateLabels() {
+  const w = stage.clientWidth, h = stage.clientHeight;
+  const portrait = aspect < 0.9;
+  items.forEach((it, i) => {
+    const el = labelEls[i];
+    projectV.copy(it.home).project(camera);
+    const sy = (-projectV.y * 0.5 + 0.5) * h;
+    const sx = (projectV.x * 0.5 + 0.5) * w;
+    const modelOnLeft = i % 2 === 0;
+    const fade = state === "ring" ? clamp(1.2 - Math.abs(sy - h / 2) / (h * 0.55), 0, 1) : 0;
+    el.style.opacity = fade.toFixed(3);
+    el.classList.toggle("below", portrait);
+    el.classList.toggle("right", !portrait && !modelOnLeft);
+    let x, y = sy, tx = "0", ty = "-50%";
+    if (portrait) {
+      x = w / 2; y = sy + h * 0.17; tx = "-50%"; ty = "0";
+    } else if (modelOnLeft) {
+      x = w * 0.66;
+    } else {
+      x = w * 0.34; tx = "-100%";
+    }
+    el.style.transform = `translate(${x}px, ${y}px) translate(${tx}, ${ty})`;
+  });
+}
+
 /* ---------- Keyboard-accessible list ---------- */
 function buildList() {
   const ul = $("project-list");
@@ -468,6 +520,7 @@ applyTheme();
 loadContent(projects).then((merged) => {
   merged.forEach((m, i) => Object.assign(projects[i], { title: m.title, notes: m.notes, photos: m.photos }));
   buildList();
+  updateLabelText();
   updateHud();
 });
 
@@ -490,18 +543,17 @@ renderer.setAnimationLoop((now) => {
 
   if (!visible && state === "ring") return;
 
-  if (scrollDriven) ringTheta += (scrollTarget() - ringTheta) * (1 - Math.exp(-dt * 5));
+  camYTarget = scrollTarget();
+  camY += (camYTarget - camY) * (1 - Math.exp(-dt * 6));
   if (state === "ring") {
     parallax.lerp(parallaxT, 1 - Math.exp(-dt * 3));
-    const r = ringPose();
+    const r = browsePose();
     camera.position.copy(r.pos);
-    if (!reduce) { camera.position.x += parallax.x * 0.45; camera.position.y += -parallax.y * 0.2; }
+    if (!reduce) { camera.position.x += parallax.x * 0.4; camera.position.y += -parallax.y * 0.18; }
     camTarget.copy(r.target);
   }
 
   for (const it of items) {
-    const a = it.phi + ringTheta;
-    it.group.position.set(Math.sin(a) * ringRx, 0, Math.cos(a) * RING_R);
     const isActive = it === active && (state === "zoom" || state === "focused");
     const bob = reduce || isActive ? 0 : Math.sin(t * 0.9 + it.i * 1.7) * 0.07;
     it.holder.position.y += (bob - it.holder.position.y) * (1 - Math.exp(-dt * 6));
@@ -518,6 +570,8 @@ renderer.setAnimationLoop((now) => {
 
   if (state === "focused") controls.update();
   else camera.lookAt(camTarget);
+  camera.updateMatrixWorld();
+  updateLabels();
 
   renderer.render(scene, camera);
 });

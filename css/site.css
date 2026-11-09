@@ -102,7 +102,7 @@ img { display: block; max-width: 100%; }
 @keyframes cue { 0% { transform: translateY(-100%); } 70%, 100% { transform: translateY(260%); } }
 
 /* Ring stage */
-.ring-wrap { height: 360vh; position: relative; }
+.ring-wrap { height: 310vh; position: relative; }
 .stage {
   position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden;
   background:
@@ -113,6 +113,25 @@ img { display: block; max-width: 100%; }
 #gl { position: absolute; inset: 0; width: 100%; height: 100%; display: block; touch-action: pan-y; }
 .stage.is-focused #gl { touch-action: none; }
 .stage.can-click #gl { cursor: pointer; }
+
+/* Project names, placed opposite each model */
+.labels { position: absolute; inset: 0; z-index: 4; pointer-events: none; transition: opacity 0.5s var(--ease); }
+.stage.is-focused .labels { opacity: 0; }
+.label {
+  position: absolute; left: 0; top: 0; pointer-events: auto; text-align: left;
+  display: flex; flex-direction: column; gap: 6px; transform: translate(0, -50%);
+  font-family: var(--font-display); color: var(--ink); will-change: transform, opacity;
+}
+.stage.is-focused .label { pointer-events: none; }
+.label.right { text-align: right; align-items: flex-end; }
+.label .n { font-family: var(--font-body); font-weight: 500; font-size: 12px; letter-spacing: 0.2em; color: var(--accent); }
+.label .t {
+  font-weight: 700; letter-spacing: -0.035em; line-height: 0.95; text-transform: uppercase;
+  font-size: clamp(1.9rem, 5.2vw, 4.6rem); max-width: 9ch; transition: color 0.25s;
+}
+.label:hover .t { color: var(--accent); }
+.label.below { text-align: center; align-items: center; }
+.label.below .t { font-size: clamp(1.5rem, 8vw, 2.4rem); max-width: 14ch; }
 
 .progress {
   position: absolute; left: 0; top: 0; height: 2px; width: 0; background: var(--accent-2);
