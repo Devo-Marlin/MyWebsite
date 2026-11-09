@@ -375,3 +375,8 @@ button, a, label, select, input[type="range"] { touch-action: manipulation; }
   .hero { padding-top: 64px; }
   .cue { display: none; }
 }
+
+/* Theme button: moon in light mode (click for dark), sun in dark mode (click for light) */
+#theme .moon { display: none; }
+html[data-theme="light"] #theme .sun { display: none; }
+html[data-theme="light"] #theme .moon { display: block; }

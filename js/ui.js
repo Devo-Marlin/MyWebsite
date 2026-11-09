@@ -1,14 +1,19 @@
-import { configured, photoUrl } from "./content.js?v=202611090g";
+import { configured, photoUrl } from "./content.js?v=202611090h";
 
 const $ = (id) => document.getElementById(id);
 const cfg = window.SITE_CONFIG || {};
 
 /* ---------- Theme ---------- */
 export function initTheme(onChange) {
-  $("theme").addEventListener("click", () => {
+  const btn = $("theme");
+  // The icon shows what a click will switch to: a moon in light mode, a sun in dark mode.
+  const label = () => btn.setAttribute("aria-label", document.documentElement.dataset.theme === "dark" ? "Switch to light mode" : "Switch to dark mode");
+  label();
+  btn.addEventListener("click", () => {
     const next = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
     document.documentElement.dataset.theme = next;
     try { localStorage.setItem("theme", next); } catch (e) {}
+    label();
     onChange(next);
   });
 }

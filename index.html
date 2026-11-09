@@ -12,7 +12,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="css/site.css?v=202611090g" />
+<link rel="stylesheet" href="css/site.css?v=202611090h" />
 <script>
   try { var t = localStorage.getItem("theme"); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
 </script>
@@ -24,7 +24,7 @@
   }
 }
 </script>
-<script src="config.js?v=202611090g"></script>
+<script src="config.js?v=202611090h"></script>
 </head>
 <body>
 
@@ -33,9 +33,12 @@
 <header class="corner">
   <a class="mark" href="#top" aria-label="Devon Marlin">DM</a>
   <button class="icon-btn" id="theme" type="button" aria-label="Toggle light and dark theme">
-    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true">
+    <svg class="sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true">
       <circle cx="12" cy="12" r="4.2"/>
       <path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M18.7 5.3l-1.6 1.6M6.9 17.1l-1.6 1.6"/>
+    </svg>
+    <svg class="moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M20.5 14.3A8.6 8.6 0 0 1 9.7 3.5 8.6 8.6 0 1 0 20.5 14.3z"/>
     </svg>
   </button>
 </header>
@@ -148,6 +151,6 @@
   </form>
 </dialog>
 
-<script type="module" src="js/main.js?v=202611090g"></script>
+<script type="module" src="js/main.js?v=202611090h"></script>
 </body>
 </html>
