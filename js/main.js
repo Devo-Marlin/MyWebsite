@@ -47,6 +47,9 @@ const camTarget = new THREE.Vector3();
 const controls = new OrbitControls(camera, canvas);
 Object.assign(controls, { enabled: false, enableDamping: true, dampingFactor: 0.08, enablePan: false, minDistance: 1.8, maxDistance: 11, rotateSpeed: 0.7 });
 controls.maxPolarAngle = Math.PI * 0.52;
+// OrbitControls pins the canvas to touch-action: none, which stops a finger on the 3D area from scrolling the page.
+// Hand control back to the stylesheet: pan-y while browsing, none only while a model is open.
+canvas.style.removeProperty("touch-action");
 
 const ring = new THREE.Group();
 scene.add(ring);
